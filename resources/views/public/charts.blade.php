@@ -740,6 +740,16 @@
             const totalLabelTargets = ['Total', 'Jumlah Penduduk', 'Wajib KTP'];
             const horizontalChartKeys = @json($horizontalChartKeys);
             const formatNumber = (value) => new Intl.NumberFormat('id-ID').format(value);
+            const getCssColor = (name, fallback) => {
+                const value = getComputedStyle(document.documentElement).getPropertyValue(name);
+                return value ? value.trim() || fallback : fallback;
+            };
+            const getChartColors = () => ({
+                axis: getCssColor('--color-chart-axis', '#4b5563'),
+                grid: getCssColor('--color-chart-grid', 'rgba(148, 163, 184, 0.35)'),
+                surface: getCssColor('--color-surface', '#0f172a'),
+                text: getCssColor('--color-text', '#0f172a'),
+            });
 
             // Chart.js custom plugin untuk category tags
             const categoryTagPlugin = {
@@ -750,6 +760,7 @@
                         return;
                     }
                     const labels = pluginOptions?.labels ?? chart.config.data.labels;
+                    const tagTextColor = getCssColor('--color-text', '#1f3f7a');
                     if (!labels || !labels.length) {
                         return;
                     }
@@ -780,7 +791,7 @@
                             const yZero = chart.scales.y ? chart.scales.y.getPixelForValue(0) : chartArea.bottom;
                             ctx.translate(x, yZero + 6);
                             ctx.rotate(-Math.PI / 2);
-                            ctx.fillStyle = '#1f3f7a';
+                            ctx.fillStyle = tagTextColor;
                             ctx.textAlign = 'right';
                             ctx.textBaseline = 'middle';
                             ctx.fillText(text, 0, 0);
@@ -803,7 +814,7 @@
                             }
                             ctx.fill();
 
-                            ctx.fillStyle = '#1f3f7a';
+                            ctx.fillStyle = tagTextColor;
                             ctx.textAlign = 'center';
                             ctx.fillText(text, x, boxY + boxHeight / 2);
                         }
@@ -822,7 +833,8 @@
                     const { ctx } = chart;
                     ctx.save();
                     ctx.font = pluginOptions.font || '10px "Inter", "Poppins", sans-serif';
-                    ctx.fillStyle = pluginOptions.color || '#1f2937';
+                    const labelColor = getCssColor('--color-text', '#e2e8f0');
+                    ctx.fillStyle = pluginOptions.color || labelColor;
                     ctx.textBaseline = 'middle';
                     const horizontal = typeof pluginOptions.horizontal === 'boolean'
                         ? pluginOptions.horizontal
@@ -891,6 +903,10 @@
 
                 // Tunggu sedikit agar canvas sudah ter-render
                 setTimeout(() => {
+                    const themeColors = getChartColors();
+                    Chart.defaults.color = themeColors.axis;
+                    Chart.defaults.borderColor = themeColors.grid;
+
                     const ctx = canvas.getContext('2d');
                     canvas.dataset.chartKey = key;
                     const isHorizontal = horizontalChartKeys.includes(key);
@@ -923,32 +939,37 @@
                                 y: isHorizontal
                                     ? {
                                         beginAtZero: false,
-                                        grid: { drawBorder: false },
+                                        grid: { drawBorder: false, color: themeColors.grid },
                                         ticks: {
                                             autoSkip: false,
                                             padding: 4,
                         font: { size: key === 'single-age' ? 9 : 11 },
-                                            color: '#4b5563'
+                                            color: themeColors.axis
                                         }
                                     }
                                     : {
                                         beginAtZero: true,
+                                        grid: { color: themeColors.grid, drawBorder: false },
                                         ticks: {
                                             callback(value) {
                                                 return formatNumber(value);
-                                            }
+                                            },
+                                            color: themeColors.axis
                                         }
                                     },
                                 x: isHorizontal
                                     ? {
                                         beginAtZero: true,
+                                        grid: { color: themeColors.grid, drawBorder: false },
                                         ticks: {
                                             callback(value) {
                                                 return formatNumber(value);
-                                            }
+                                            },
+                                            color: themeColors.axis
                                         }
                                     }
                                     : {
+                                        grid: { color: themeColors.grid, drawBorder: false },
                                         ticks: {
                                             autoSkip: false,
                                             maxRotation: 45,
@@ -956,7 +977,8 @@
                                             callback(value, index, ticks) {
                                                 const label = (ticks[index] && ticks[index].label) || '';
                                                 return label.length > 20 ? label.substring(0, 20) + '…' : label;
-                                            }
+                                            },
+                                            color: themeColors.axis
                                         }
                                     }
                             },
@@ -965,6 +987,11 @@
                                     display: false
                                 },
                                 tooltip: {
+                                    backgroundColor: themeColors.surface,
+                                    titleColor: themeColors.text,
+                                    bodyColor: themeColors.text,
+                                    borderColor: themeColors.grid,
+                                    borderWidth: 1,
                                     callbacks: {
                                         label(context) {
                                             const label = context.dataset.label || '';
@@ -1117,6 +1144,20 @@
             setTimeout(function() {
                 updateFullscreenButtons();
             }, 100);
+
+            const refreshChartsForTheme = () => {
+                Object.keys(chartInstances).forEach((key) => {
+                    if (chartInstances[key]) {
+                        chartInstances[key].destroy();
+                        chartInstances[key] = null;
+                    }
+                });
+                const activePane = document.querySelector('.dk-tab-pane.active');
+                const activeCategory = activePane ? activePane.id.replace('tab-', '') : initialCategory;
+                setTimeout(() => ensureChart(activeCategory), 120);
+            };
+
+            document.addEventListener('theme-changed', refreshChartsForTheme);
 
             // Initialize chart untuk tab aktif saat halaman dimuat
             setTimeout(function() {

@@ -28,6 +28,36 @@
     --breakpoint-2xl: 1536px;
 }
 
+:root {
+    --color-bg: #f8fafc;
+    --color-surface: #ffffff;
+    --color-surface-strong: #f1f5f9;
+    --color-text: #0f172a;
+    --color-text-muted: #475569;
+    --color-border: #e2e8f0;
+    --color-chart-axis: #334155;
+    --color-chart-grid: rgba(148, 163, 184, 0.35);
+    --shadow-elevated: 0 1px 3px rgba(15, 23, 42, 0.12), 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+    --color-bg: #0b1526;
+    --color-surface: #0f172a;
+    --color-surface-strong: #16233a;
+    --color-text: #e2e8f0;
+    --color-text-muted: #cbd5e1;
+    --color-border: #1f2937;
+    --color-chart-axis: #cbd5e1;
+    --color-chart-grid: rgba(148, 163, 184, 0.3);
+    --shadow-elevated: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 /* Utility classes untuk komponen modern */
 .bg-primary {
     background-color: var(--color-primary);
@@ -89,16 +119,16 @@ aside nav a span[x-show] {
 
 /* Card Component Styles */
 .dk-card {
-    background: white;
+    background: var(--color-surface);
     border-radius: 0.5rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    border: 1px solid #e5e7eb;
+    box-shadow: var(--shadow-elevated);
+    border: 1px solid var(--color-border);
 }
 
 .dk-card__title {
     font-size: 1rem;
     font-weight: 600;
-    color: #111827;
+    color: var(--color-text);
     margin-bottom: 0.5rem;
 }
 
@@ -109,8 +139,8 @@ aside nav a span[x-show] {
 }
 
 .dk-table thead {
-    background-color: #f9fafb;
-    border-bottom: 2px solid #e5e7eb;
+    background-color: var(--color-surface-strong);
+    border-bottom: 2px solid var(--color-border);
 }
 
 .dk-table thead th {
@@ -118,10 +148,10 @@ aside nav a span[x-show] {
     text-align: left;
     font-weight: 600;
     font-size: 0.875rem;
-    color: #374151;
+    color: var(--color-text);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid var(--color-border);
 }
 
 .dk-table thead th:last-child {
@@ -142,9 +172,9 @@ aside nav a span[x-show] {
 
 .dk-table tbody td {
     padding: 0.75rem 1rem;
-    border-bottom: 1px solid #e5e7eb;
-    border-right: 1px solid #e5e7eb;
-    color: #111827;
+    border-bottom: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    color: var(--color-text);
 }
 
 .dk-table tbody td:last-child {
@@ -152,20 +182,20 @@ aside nav a span[x-show] {
 }
 
 .dk-table tbody tr:hover {
-    background-color: #f9fafb;
+    background-color: var(--color-surface-strong);
 }
 
 .dk-table tfoot {
-    background-color: #f9fafb;
-    border-top: 2px solid #e5e7eb;
+    background-color: var(--color-surface-strong);
+    border-top: 2px solid var(--color-border);
 }
 
 .dk-table tfoot th {
     padding: 0.75rem 1rem;
     font-weight: 600;
-    color: #111827;
+    color: var(--color-text);
     text-align: left;
-    border-right: 1px solid #e5e7eb;
+    border-right: 1px solid var(--color-border);
 }
 
 .dk-table tfoot th:last-child {
@@ -333,6 +363,25 @@ button.dk-tab-button.active:hover,
     align-items: center !important;
 }
 
+.dark .dk-tabs {
+    border-top-color: var(--color-border);
+}
+
+.dark .dk-tab-button {
+    color: var(--color-text) !important;
+}
+
+.dark .dk-tab-button:hover:not(.active) {
+    color: var(--color-text) !important;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.dark .dk-tab-button.active,
+.dark #aggregateTabs button.dk-tab-button.active {
+    color: var(--color-text) !important;
+    border-top-color: var(--color-text) !important;
+}
+
 .dk-tab-content {
     padding: 1.5rem;
 }
@@ -409,8 +458,123 @@ button.dk-tab-button.active:hover,
     transform: translateY(-1px);
 }
 
+.chart-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.55rem;
+    border-radius: 0.75rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    box-shadow: var(--shadow-elevated);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chart-action-btn:hover {
+    background: var(--color-surface-strong);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
 .dk-table-heading__dropdown {
     min-width: 200px;
+}
+
+.chart-legend-item {
+    color: var(--color-text-muted);
+}
+
+.theme-toggle-btn {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    box-shadow: var(--shadow-elevated);
+}
+
+.theme-toggle-btn:hover {
+    background: var(--color-surface-strong);
+}
+
+/* Dark mode: sidebar hover background */
+.dark .sidebar-nav-link:not(.active):hover {
+    background-color: #152a4a;
+    color: #e2e8f0;
+}
+
+.dark .bg-white,
+.dark .bg-gray-50 {
+    background-color: var(--color-surface) !important;
+}
+
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-gray-700 {
+    color: var(--color-text) !important;
+}
+
+.dark .text-gray-600,
+.dark .text-gray-500 {
+    color: var(--color-text-muted) !important;
+}
+
+.dark .text-slate-700,
+.dark .text-slate-600,
+.dark .text-slate-500 {
+    color: var(--color-text-muted) !important;
+}
+
+.dark select,
+.dark select:focus {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border);
+}
+
+.dark select option {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-300 {
+    border-color: var(--color-border) !important;
+}
+
+.dark header,
+.dark aside {
+    background-color: var(--color-surface) !important;
+    border-color: var(--color-border) !important;
+}
+
+.dark .js-fullscreen-btn img {
+    filter: brightness(0) invert(1);
+}
+
+.dark .breadcrumb-icon-image,
+.dark .breadcrumb-icon-chart {
+    filter: brightness(0) invert(1);
+}
+
+.dark nav svg {
+    stroke: var(--color-text);
+}
+
+.dark .chart-wrapper {
+    background-color: var(--color-surface) !important;
+    background-image: none !important;
+    border-color: var(--color-border) !important;
+}
+
+.dark .chart-container {
+    background-color: var(--color-surface) !important;
+}
+
+.dark .chart-legend-item {
+    color: var(--color-text) !important;
 }
 
 /* Responsive adjustments */
@@ -435,4 +599,3 @@ button.dk-tab-button.active:hover,
         font-size: 0.8125rem;
     }
 }
-

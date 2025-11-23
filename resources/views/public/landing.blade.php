@@ -7,6 +7,22 @@
     <style>
         #landing-map { height: 100%; min-height: 600px; width: 100%; z-index: 1; }
         .leaflet-popup-content-wrapper { border-radius: 8px; }
+        .dark .leaflet-popup-content-wrapper {
+            background: var(--color-surface);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+        .dark .leaflet-popup-tip {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            box-shadow: none;
+        }
+        .dark .leaflet-popup-content {
+            color: var(--color-text);
+        }
+        .dark .leaflet-popup-close-button {
+            color: var(--color-text);
+        }
         .metric-card {
             background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             border-radius: 12px;
@@ -1166,6 +1182,12 @@
                 console.log('Initializing population growth chart with data:', growthData);
 
                 const ctx = canvas.getContext('2d');
+                const getCssColor = (name, fallback) => {
+                    const value = getComputedStyle(document.documentElement).getPropertyValue(name);
+                    return value ? value.trim() || fallback : fallback;
+                };
+                const themeAxis = getCssColor('--color-text', '#e2e8f0');
+                const themeGrid = getCssColor('--color-chart-grid', 'rgba(148,163,184,0.35)');
                 
                 // Proses data untuk menghandle null values dengan benar
                 // Growth rate dihitung dengan membandingkan periode sebelumnya
@@ -1226,6 +1248,7 @@
                                             size: 12,
                                             family: "'Inter', 'Poppins', sans-serif"
                                         },
+                                        color: themeAxis
                                     }
                                 },
                                 tooltip: {
@@ -1276,7 +1299,7 @@
                                             size: 11,
                                             family: "'Inter', 'Poppins', sans-serif"
                                         },
-                                        color: '#6b7280'
+                                        color: themeAxis
                                     }
                                 },
                                 y: {
@@ -1285,14 +1308,14 @@
                                     position: 'left',
                                     beginAtZero: false,
                                     grid: {
-                                        color: 'rgba(0, 0, 0, 0.05)'
+                                        color: themeGrid
                                     },
                                     ticks: {
                                         font: {
                                             size: 11,
                                             family: "'Inter', 'Poppins', sans-serif"
                                         },
-                                        color: '#6b7280',
+                                        color: themeAxis,
                                         callback: function(value) {
                                             return new Intl.NumberFormat('id-ID').format(value);
                                         }
@@ -1305,7 +1328,7 @@
                                             weight: 'bold',
                                             family: "'Inter', 'Poppins', sans-serif"
                                         },
-                                        color: '#374151'
+                                        color: themeAxis
                                     }
                                 },
                                 y1: {
@@ -1315,13 +1338,14 @@
                                     beginAtZero: false,
                                     grid: {
                                         drawOnChartArea: false,
+                                        color: themeGrid,
                                     },
                                     ticks: {
                                         font: {
                                             size: 11,
                                             family: "'Inter', 'Poppins', sans-serif"
                                         },
-                                        color: '#6b7280',
+                                        color: themeAxis,
                                         callback: function(value) {
                                             if (value === null || isNaN(value)) {
                                                 return '';
@@ -1337,7 +1361,7 @@
                                             weight: 'bold',
                                             family: "'Inter', 'Poppins', sans-serif"
                                         },
-                                        color: '#374151'
+                                        color: themeAxis
                                     }
                                 }
                             }

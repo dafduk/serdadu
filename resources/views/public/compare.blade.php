@@ -438,8 +438,7 @@
                                 @endphp
                                 <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 justify-end">
                                     <span 
-                                        class="js-download-btn inline-flex items-center justify-center w-12 h-12 p-1.5 border border-black/70 rounded-xl shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer select-none transition"
-                                        style="width:2.25rem;height:2.25rem;padding:0.55rem;"
+                                        class="js-download-btn chart-action-btn cursor-pointer select-none"
                                         data-download-type="compare"
                                         data-download-format="pdf"
                                         data-download-url="{{ $downloadUrl }}"
@@ -452,7 +451,7 @@
                                         <img src="{{ asset('img/pdf.png') }}" alt="PDF icon" class="w-7 h-7 md:w-8 md:h-8 object-contain" style="width:1.3rem;height:1.3rem;">
                                     </span>
                                 </div>
-                                <a href="{{ $fullscreenUrl }}" target="_blank" class="inline-flex items-center justify-center w-12 h-12 p-1.5 border border-black/70 rounded-xl shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition dk-table-heading__fullscreen-btn js-fullscreen-btn ml-0 sm:ml-4" style="width:2.25rem;height:2.25rem;padding:0.55rem;" data-base-url="{{ route('public.compare.fullscreen', request()->query()) }}" title="Buka di tab baru (Fullscreen)">
+                                <a href="{{ $fullscreenUrl }}" target="_blank" class="chart-action-btn dk-table-heading__fullscreen-btn js-fullscreen-btn ml-0 sm:ml-4" data-base-url="{{ route('public.compare.fullscreen', request()->query()) }}" title="Buka di tab baru (Fullscreen)">
                                     <img src="{{ asset('img/maximize.png') }}" alt="" class="w-7 h-7 md:w-8 md:h-8 object-contain" style="width:1.3rem;height:1.3rem;" aria-hidden="true">
                                     <span class="sr-only">Buka di tab baru (Fullscreen)</span>
                                 </a>
@@ -629,6 +628,22 @@
             const chartInstances = {};
             const chartsWithValueLabels = Object.keys(primaryCharts || {});
             const totalLabelTargets = ['Total', 'Jumlah Penduduk', 'Wajib KTP'];
+            const getCssColor = (name, fallback) => {
+                const value = getComputedStyle(document.documentElement).getPropertyValue(name);
+                return value ? value.trim() || fallback : fallback;
+            };
+            const getThemeTextColor = () => {
+                const isDark = document.documentElement.classList.contains('dark');
+                return isDark ? '#e2e8f0' : '#0f172a';
+            };
+            // Apply default colors once on load (will be refreshed per render below)
+            if (typeof Chart !== 'undefined') {
+                const isDark = document.documentElement.classList.contains('dark');
+                const axisColor = isDark ? '#e2e8f0' : '#0f172a';
+                const gridColor = getCssColor('--color-chart-grid', 'rgba(148, 163, 184, 0.35)');
+                Chart.defaults.color = axisColor;
+                Chart.defaults.borderColor = gridColor;
+            }
 
             const primaryLabel = @json($primaryLabel);
             const compareLabel = @json($compareLabel);
@@ -651,8 +666,11 @@
                     if (!xScale) return;
 
                     const fontSize = 10;
+                    const isDark = document.documentElement.classList.contains('dark');
+                    const labelColor = isDark ? '#e2e8f0' : '#0f172a';
                     ctx.save();
                     ctx.font = `${fontSize}px "Inter", "Poppins", sans-serif`;
+                    ctx.fillStyle = labelColor;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
 
@@ -685,7 +703,8 @@
                         const { ctx } = chart;
                         ctx.save();
                         ctx.font = pluginOptions.font || '10px "Inter", "Poppins", sans-serif';
-                        ctx.fillStyle = pluginOptions.color || '#1f2937';
+                        const labelColor = getThemeTextColor();
+                        ctx.fillStyle = pluginOptions.color || labelColor;
                         const horizontal = typeof pluginOptions.horizontal === 'boolean'
                             ? pluginOptions.horizontal
                             : chart.config?.options?.indexAxis === 'y';
@@ -760,6 +779,15 @@
                     
                     const key = chartKey.replace('primary-', '').replace('compare-', '');
                     const ctx = canvas.getContext('2d');
+                    const isDark = document.documentElement.classList.contains('dark');
+                    const themeColors = {
+                        axis: isDark ? '#e2e8f0' : '#0f172a',
+                        grid: isDark ? 'rgba(148, 163, 184, 0.35)' : getCssColor('--color-chart-grid', 'rgba(148, 163, 184, 0.35)'),
+                        surface: getCssColor('--color-surface', '#0f172a'),
+                        text: isDark ? '#e2e8f0' : '#0f172a',
+                    };
+                    Chart.defaults.color = themeColors.axis;
+                    Chart.defaults.borderColor = themeColors.grid;
                     canvas.dataset.chartKey = chartKey;
                     const labels = config.labels || [];
                     const datasets = config.datasets || [];
@@ -793,32 +821,40 @@
                                 y: isHorizontal
                                     ? {
                                         beginAtZero: false,
-                                        grid: { drawBorder: false },
+                                        grid: { drawBorder: false, color: themeColors.grid },
                                         ticks: {
                                             autoSkip: false,
                                             padding: 4,
-                                            font: { size: key === 'single-age' ? 9 : 11 },
-                                            color: '#4b5563'
+                        font: { size: key === 'single-age' ? 9 : 11 },
+                                            color: themeColors.axis,
+                                            backdropColor: 'transparent'
                                         }
                                     }
                                     : {
                                         beginAtZero: true,
+                                        grid: { color: themeColors.grid, drawBorder: false },
                                         ticks: {
                                             callback(value) {
                                                 return formatNumber(value);
-                                            }
+                                            },
+                                            color: themeColors.axis,
+                                            backdropColor: 'transparent'
                                         }
                                     },
                                 x: isHorizontal
                                     ? {
                                         beginAtZero: true,
+                                        grid: { color: themeColors.grid, drawBorder: false },
                                         ticks: {
                                             callback(value) {
                                                 return formatNumber(value);
-                                            }
+                                            },
+                                            color: themeColors.axis,
+                                            backdropColor: 'transparent'
                                         }
                                     }
                                     : {
+                                        grid: { color: themeColors.grid, drawBorder: false },
                                         ticks: {
                                             autoSkip: false,
                                             maxRotation: 45,
@@ -826,7 +862,9 @@
                                             callback(value, index, ticks) {
                                                 const label = (ticks[index] && ticks[index].label) || '';
                                                 return label.length > 20 ? label.substring(0, 20) + '…' : label;
-                                            }
+                                            },
+                                            color: themeColors.axis,
+                                            backdropColor: 'transparent'
                                         }
                                     }
                             },
@@ -835,6 +873,11 @@
                                     display: false
                                 },
                                 tooltip: {
+                                    backgroundColor: themeColors.surface,
+                                    titleColor: themeColors.text,
+                                    bodyColor: themeColors.text,
+                                    borderColor: themeColors.grid,
+                                    borderWidth: 1,
                                     callbacks: {
                                         label(context) {
                                             const label = context.dataset.label || '';

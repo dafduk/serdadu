@@ -230,7 +230,7 @@
             {{-- Footer Note --}}
             <div class="mt-8 pt-6 border-t border-gray-200 text-center">
                 <p class="text-sm text-gray-500">
-                    Dokumen ini berlaku sejak {{ now()->format('d F Y') }}
+                    Dokumen ini berlaku sejak {{ config('app.terms_effective_date', '23 November 2025') }}
                 </p>
                 <p class="text-sm text-gray-500 mt-2">
                     Dinas Kependudukan dan Pencatatan Sipil Kabupaten Madiun

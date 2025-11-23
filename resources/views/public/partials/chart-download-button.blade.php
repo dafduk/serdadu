@@ -8,8 +8,7 @@
 @endphp
 <div class="dk-table-heading__downloads flex flex-wrap gap-2 items-center justify-end text-right">
     <span 
-        class="js-download-btn inline-flex items-center justify-center w-12 h-12 p-1.5 border border-black/70 rounded-xl shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer select-none transition"
-        style="width:2.25rem;height:2.25rem;padding:0.55rem;"
+        class="js-download-btn chart-action-btn cursor-pointer select-none"
         data-download-type="chart"
         data-download-format="pdf"
         data-download-url="{{ $downloadUrl }}"

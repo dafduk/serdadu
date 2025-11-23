@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Serdadu') - Sistem Rekap Data Terpadu</title>
+    <script>
+        (function() {
+            const storageKey = 'theme';
+            const root = document.documentElement;
+            const getStoredTheme = () => {
+                try {
+                    const stored = localStorage.getItem(storageKey);
+                    if (stored === 'dark' || stored === 'light') return stored;
+                } catch (e) {
+                    /* ignore storage errors */
+                }
+                return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            };
+            const initialTheme = getStoredTheme();
+            if (initialTheme === 'dark') {
+                root.classList.add('dark');
+            } else {
+                root.classList.remove('dark');
+            }
+            root.dataset.theme = initialTheme;
+        })();
+    </script>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
@@ -484,6 +506,18 @@
             opacity: 1;
         }
 
+        /* Dark mode: semua ikon sidebar jadi putih */
+        .dark .sidebar-nav-icon {
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+
+        .dark .sidebar-nav-link:hover .sidebar-nav-icon,
+        .dark .sidebar-nav-link.active .sidebar-nav-icon {
+            filter: brightness(0) invert(1);
+            opacity: 1;
+        }
+
         .breadcrumb-icon-image {
             display: inline-block;
         }
@@ -623,15 +657,30 @@
                     <div class="text-xs text-gray-500">Sistem Rekap Data Terpadu</div>
                 </div>
             </div>
-            <button 
-                id="mobile-menu-toggle"
-                class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-                aria-label="Toggle menu"
-            >
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+            <div class="flex items-center gap-2">
+                <button 
+                    type="button"
+                    class="theme-toggle-btn p-2 rounded-lg transition-colors"
+                    data-theme-toggle
+                    aria-label="Toggle theme"
+                >
+                    <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05 5.636 5.636M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                    </svg>
+                    <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                    </svg>
+                </button>
+                <button 
+                    id="mobile-menu-toggle"
+                    class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                    aria-label="Toggle menu"
+                >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -725,6 +774,7 @@
     >
         <!-- Breadcrumb Navigation -->
         <div class="border-b border-gray-200 bg-white px-4 lg:px-6 py-3">
+            <div class="flex items-center justify-between gap-4">
             <nav class="flex items-center gap-2 text-sm" aria-label="Breadcrumb">
                 @php
                     $breadcrumbs = [];
@@ -984,6 +1034,21 @@
                     @endforeach
                 </ol>
             </nav>
+            <button 
+                type="button"
+                class="theme-toggle-btn inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-colors"
+                data-theme-toggle
+                aria-label="Toggle theme"
+            >
+                <svg class="icon-sun w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414m12.728 0l-1.414-1.414M7.05 7.05 5.636 5.636M12 8a4 4 0 100 8 4 4 0 000-8z"/>
+                </svg>
+                <svg class="icon-moon w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                </svg>
+                <span class="hidden sm:inline text-sm font-medium">Mode</span>
+            </button>
+            </div>
         </div>
         
         <div class="p-4 lg:p-6 max-w-full">
@@ -1027,6 +1092,60 @@
     </footer>
 
     @stack('scripts')
+    
+    <script>
+        (function() {
+            'use strict';
+            const storageKey = 'theme';
+            const root = document.documentElement;
+
+            const updateToggleIcons = () => {
+                const isDark = root.classList.contains('dark');
+                document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+                    const sun = btn.querySelector('.icon-sun');
+                    const moon = btn.querySelector('.icon-moon');
+                    if (sun && moon) {
+                        sun.classList.toggle('hidden', isDark);
+                        moon.classList.toggle('hidden', !isDark);
+                    }
+                    btn.setAttribute('aria-pressed', String(isDark));
+                });
+            };
+
+            const applyTheme = (theme) => {
+                root.classList.toggle('dark', theme === 'dark');
+                root.dataset.theme = theme;
+            };
+
+            const setTheme = (theme) => {
+                applyTheme(theme);
+                try {
+                    localStorage.setItem(storageKey, theme);
+                } catch (e) {
+                    console.warn('Cannot persist theme preference');
+                }
+                document.dispatchEvent(new Event('theme-changed'));
+                updateToggleIcons();
+            };
+
+            const toggleTheme = () => {
+                const isDark = root.classList.contains('dark');
+                const nextTheme = isDark ? 'light' : 'dark';
+                setTheme(nextTheme);
+                // Reload to ensure all charts and text colors fully re-render in the new theme
+                setTimeout(() => {
+                    window.location.reload();
+                }, 30);
+            };
+
+            document.addEventListener('DOMContentLoaded', () => {
+                updateToggleIcons();
+                document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+                    btn.addEventListener('click', toggleTheme);
+                });
+            });
+        })();
+    </script>
     
     <script>
         // Vanilla JavaScript untuk sidebar collapse (CSP-friendly)

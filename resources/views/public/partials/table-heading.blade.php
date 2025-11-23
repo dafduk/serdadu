@@ -85,8 +85,7 @@
                 @endphp
                 <div class="dk-table-heading__downloads flex flex-wrap sm:flex-nowrap items-center gap-2 justify-end">
                     <span 
-                        class="js-download-btn inline-flex items-center justify-center w-12 h-12 p-1.5 border border-black/70 rounded-xl shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer select-none transition"
-                        style="width:2.25rem;height:2.25rem;padding:0.55rem;"
+                        class="js-download-btn chart-action-btn cursor-pointer select-none"
                         data-download-type="table"
                         data-download-format="pdf"
                         data-download-url="{{ $pdfUrl }}"
@@ -99,8 +98,7 @@
                         <img src="{{ asset('img/pdf.png') }}" alt="PDF icon" class="w-7 h-7 md:w-8 md:h-8 object-contain" style="width:1.3rem;height:1.3rem;">
                     </span>
                     <span 
-                        class="js-download-btn inline-flex items-center justify-center w-12 h-12 p-1.5 border border-black/70 rounded-xl shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 cursor-pointer select-none transition"
-                        style="width:2.25rem;height:2.25rem;padding:0.55rem;"
+                        class="js-download-btn chart-action-btn cursor-pointer select-none"
                         data-download-type="table"
                         data-download-format="excel"
                         data-download-url="{{ $excelUrl }}"
@@ -114,7 +112,7 @@
                     </span>
                 </div>
             @endif
-            <a href="{{ $fullscreenUrl }}" target="_blank" class="inline-flex items-center justify-center w-12 h-12 p-1.5 border border-black/70 rounded-xl shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition dk-table-heading__fullscreen-btn js-fullscreen-btn ml-0 sm:ml-4" style="width:2.25rem;height:2.25rem;padding:0.55rem;" data-base-url="{{ route($fullscreenRoute, request()->query()) }}" title="Buka di tab baru (Fullscreen)">
+            <a href="{{ $fullscreenUrl }}" target="_blank" class="chart-action-btn dk-table-heading__fullscreen-btn js-fullscreen-btn ml-0 sm:ml-4" data-base-url="{{ route($fullscreenRoute, request()->query()) }}" title="Buka di tab baru (Fullscreen)">
                 <img src="{{ asset('img/maximize.png') }}" alt="" class="w-7 h-7 md:w-8 md:h-8 object-contain" style="width:1.3rem;height:1.3rem;" aria-hidden="true">
                 <span class="sr-only">Buka di tab baru (Fullscreen)</span>
             </a>
