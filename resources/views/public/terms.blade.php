@@ -71,6 +71,45 @@
             border-radius: 0.25rem;
             font-weight: 500;
         }
+
+        /* Dark mode adjustments */
+        .dark .terms-header {
+            border-color: #1e293b;
+        }
+        .dark .terms-section-title {
+            color: #93c5fd;
+            border-color: #1f2937;
+        }
+        .dark .terms-subsection-title {
+            color: #e2e8f0;
+        }
+        .dark .terms-intro {
+            background-color: #111827;
+            border-left-color: #2563eb;
+        }
+        .dark .terms-highlight {
+            background-color: #1f2937;
+            color: #e2e8f0;
+        }
+        .dark .terms-list li,
+        .dark .terms-list-nested li,
+        .dark .terms-section p,
+        .dark .terms-section strong,
+        .dark .terms-intro p {
+            color: #e2e8f0;
+        }
+        .dark .terms-header h1,
+        .dark .terms-header h2,
+        .dark .terms-header p {
+            color: #e2e8f0;
+        }
+        .dark .dk-card {
+            background-color: #0f172a;
+            border-color: #1e293b;
+        }
+        .dark .terms-container .border-gray-200 {
+            border-color: #1e293b;
+        }
     </style>
 @endpush
 
