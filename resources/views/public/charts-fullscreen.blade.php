@@ -25,7 +25,6 @@
             'education' => 'Pendidikan',
             'occupation' => 'Pekerjaan',
             'marital' => 'Status Perkawinan',
-            'kk' => 'Kartu Keluarga',
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
@@ -54,10 +53,6 @@
             'marital' => [
                 'horizontal' => 'Kategori status perkawinan',
                 'vertical' => 'Jumlah penduduk (jiwa)',
-            ],
-            'kk' => [
-                'horizontal' => 'Status penerbitan kartu keluarga',
-                'vertical' => 'Jumlah kartu keluarga',
             ],
             'household' => [
                 'horizontal' => 'Jenis kepala keluarga',

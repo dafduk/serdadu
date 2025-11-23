@@ -253,7 +253,7 @@
                 </tfoot>
             @endif
         </table>
-    @elseif (in_array($category, ['education', 'wajib-ktp', 'marital', 'household', 'religion', 'kk']))
+    @elseif (in_array($category, ['education', 'wajib-ktp', 'marital', 'household', 'religion']))
         @php
             $matrix = match($category) {
                 'education' => $educationMatrix,
@@ -261,7 +261,6 @@
                 'marital' => $maritalMatrix,
                 'household' => $headHouseholdMatrix,
                 'religion' => $religionMatrix,
-                'kk' => $kkMatrix,
                 default => [],
             };
             $columns = $matrix['columns'] ?? [];

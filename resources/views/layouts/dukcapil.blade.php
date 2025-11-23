@@ -774,7 +774,6 @@
                                     'household' => 'Kepala Keluarga',
                                     'religion' => 'Agama',
                                     'wajib-ktp' => 'Wajib KTP',
-                                    'kk' => 'Kartu Keluarga',
                                 ];
                                 $categoryLabel = $categoryLabels[$category] ?? 'Jenis Kelamin';
                                 
@@ -834,7 +833,6 @@
                                     'household' => 'Kepala Keluarga',
                                     'religion' => 'Agama',
                                     'wajib-ktp' => 'Wajib KTP',
-                                    'kk' => 'Kartu Keluarga',
                                 ];
                                 $categoryLabel = $categoryLabels[$category] ?? 'Jenis Kelamin';
                                 
@@ -883,7 +881,6 @@
                                     'household' => 'Kepala Keluarga',
                                     'religion' => 'Agama',
                                     'wajib-ktp' => 'Wajib KTP',
-                                    'kk' => 'Kartu Keluarga',
                                 ];
                                 $categoryLabel = $categoryLabels[$category] ?? 'Jenis Kelamin';
                                 

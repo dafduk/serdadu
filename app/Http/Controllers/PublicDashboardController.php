@@ -130,14 +130,12 @@ class PublicDashboardController extends Controller
         $marital = $period ? $this->maritalStatusSummary($period, $filters) : [];
         $headHouseholds = $period ? $this->headOfHouseholdSummary($period, $filters) : [];
         $religions = $period ? $this->religionSummary($period, $filters) : [];
-        $kk = $period ? $this->kkSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
         $areaTable = $this->areaPopulationTable($period, $filters);
         $educationMatrix = $this->educationMatrix($period, $filters);
         $wajibKtpMatrix = $this->wajibKtpMatrix($period, $filters);
         $maritalMatrix = $this->maritalMatrix($period, $filters);
         $headHouseholdMatrix = $this->headHouseholdMatrix($period, $filters);
         $religionMatrix = $this->religionMatrix($period, $filters);
-        $kkMatrix = $this->kkMatrix($period, $filters);
 
         return view('public.data', [
             'title' => 'Data Agregat',
@@ -160,14 +158,12 @@ class PublicDashboardController extends Controller
             'marital' => $marital,
             'headHouseholds' => $headHouseholds,
             'religions' => $religions,
-            'kk' => $kk,
             'areaTable' => $areaTable,
             'educationMatrix' => $educationMatrix,
             'wajibKtpMatrix' => $wajibKtpMatrix,
             'maritalMatrix' => $maritalMatrix,
             'headHouseholdMatrix' => $headHouseholdMatrix,
             'religionMatrix' => $religionMatrix,
-            'kkMatrix' => $kkMatrix,
         ]);
     }
 
@@ -187,7 +183,7 @@ class PublicDashboardController extends Controller
             'selectedSemester' => $selectedSemester,
         ] = $this->prepareFilterContext($request);
 
-        $category = $request->get('category', 'gender');
+        $category = $this->sanitizeCategory($request->get('category'));
 
         $gender = $period ? $this->genderSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0];
         $wajibKtp = $period ? $this->wajibKtpSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0];
@@ -198,14 +194,12 @@ class PublicDashboardController extends Controller
         $marital = $period ? $this->maritalStatusSummary($period, $filters) : [];
         $headHouseholds = $period ? $this->headOfHouseholdSummary($period, $filters) : [];
         $religions = $period ? $this->religionSummary($period, $filters) : [];
-        $kk = $period ? $this->kkSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
         $areaTable = $this->areaPopulationTable($period, $filters);
         $educationMatrix = $this->educationMatrix($period, $filters);
         $wajibKtpMatrix = $this->wajibKtpMatrix($period, $filters);
         $maritalMatrix = $this->maritalMatrix($period, $filters);
         $headHouseholdMatrix = $this->headHouseholdMatrix($period, $filters);
         $religionMatrix = $this->religionMatrix($period, $filters);
-        $kkMatrix = $this->kkMatrix($period, $filters);
 
         return view('public.data-fullscreen', [
             'title' => 'Data Agregat - Fullscreen',
@@ -228,14 +222,12 @@ class PublicDashboardController extends Controller
             'marital' => $marital,
             'headHouseholds' => $headHouseholds,
             'religions' => $religions,
-            'kk' => $kk,
             'areaTable' => $areaTable,
             'educationMatrix' => $educationMatrix,
             'wajibKtpMatrix' => $wajibKtpMatrix,
             'maritalMatrix' => $maritalMatrix,
             'headHouseholdMatrix' => $headHouseholdMatrix,
             'religionMatrix' => $religionMatrix,
-            'kkMatrix' => $kkMatrix,
             'category' => $category,
         ]);
     }
@@ -258,7 +250,6 @@ class PublicDashboardController extends Controller
 
         $gender = $period ? $this->genderSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0];
         $wajibKtp = $period ? $this->wajibKtpSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0];
-        $kk = $period ? $this->kkSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
         $ageGroups = $period ? $this->ageGroupSummary($period, $filters) : [];
         $singleAges = $period ? $this->singleAgeSummary($period, $filters) : [];
         $education = $period ? $this->educationSummary($period, $filters) : [];
@@ -277,7 +268,6 @@ class PublicDashboardController extends Controller
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
-            'kk' => 'Kartu Keluarga',
         ];
         $chartsNeedingTags = [
             'age',
@@ -293,8 +283,6 @@ class PublicDashboardController extends Controller
             'occupation',
         ];
 
-        $kkChart = $this->buildKkChart($chartTitles['kk'], $kk);
-
         $charts = [
             'gender' => $this->buildGenderChart($chartTitles['gender'], $gender),
             'age' => $this->buildSeriesChart($chartTitles['age'], $ageGroups),
@@ -305,7 +293,6 @@ class PublicDashboardController extends Controller
             'household' => $this->buildSeriesChart($chartTitles['household'], $headHouseholds),
             'religion' => $this->buildSeriesChart($chartTitles['religion'], $religions),
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $wajibKtp),
-            'kk' => $kkChart,
         ];
 
         return view('public.charts', [
@@ -487,7 +474,6 @@ class PublicDashboardController extends Controller
         // Get data for primary
         $primaryGender = $primaryPeriod ? $this->genderSummary($primaryPeriod, $primaryFilters) : ['male' => 0, 'female' => 0, 'total' => 0];
         $primaryWajibKtp = $primaryPeriod ? $this->wajibKtpSummary($primaryPeriod, $primaryFilters) : ['male' => 0, 'female' => 0, 'total' => 0];
-        $primaryKk = $primaryPeriod ? $this->kkSummary($primaryPeriod, $primaryFilters) : ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
         $primaryAgeGroups = $primaryPeriod ? $this->ageGroupSummary($primaryPeriod, $primaryFilters) : [];
         $primarySingleAges = $primaryPeriod ? $this->singleAgeSummary($primaryPeriod, $primaryFilters) : [];
         $primaryEducation = $primaryPeriod ? $this->educationSummary($primaryPeriod, $primaryFilters) : [];
@@ -499,7 +485,6 @@ class PublicDashboardController extends Controller
         // Get data for compare
         $compareGender = $comparePeriod ? $this->genderSummary($comparePeriod, $compareFilters) : ['male' => 0, 'female' => 0, 'total' => 0];
         $compareWajibKtp = $comparePeriod ? $this->wajibKtpSummary($comparePeriod, $compareFilters) : ['male' => 0, 'female' => 0, 'total' => 0];
-        $compareKk = $comparePeriod ? $this->kkSummary($comparePeriod, $compareFilters) : ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
         $compareAgeGroups = $comparePeriod ? $this->ageGroupSummary($comparePeriod, $compareFilters) : [];
         $compareSingleAges = $comparePeriod ? $this->singleAgeSummary($comparePeriod, $compareFilters) : [];
         $compareEducation = $comparePeriod ? $this->educationSummary($comparePeriod, $compareFilters) : [];
@@ -518,7 +503,6 @@ class PublicDashboardController extends Controller
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
-            'kk' => 'Kartu Keluarga',
         ];
 
         $chartsNeedingTags = [
@@ -547,7 +531,6 @@ class PublicDashboardController extends Controller
             'household' => $this->buildSeriesChart($chartTitles['household'], $primaryHeadHouseholds),
             'religion' => $this->buildSeriesChart($chartTitles['religion'], $primaryReligions),
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $primaryWajibKtp),
-            'kk' => $this->buildKkChart($chartTitles['kk'], $primaryKk),
         ];
 
         // Build charts for compare
@@ -561,7 +544,6 @@ class PublicDashboardController extends Controller
             'household' => $this->buildSeriesChart($chartTitles['household'], $compareHeadHouseholds),
             'religion' => $this->buildSeriesChart($chartTitles['religion'], $compareReligions),
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $compareWajibKtp),
-            'kk' => $this->buildKkChart($chartTitles['kk'], $compareKk),
         ];
 
         return view('public.compare', [
@@ -609,11 +591,10 @@ class PublicDashboardController extends Controller
             'selectedSemester' => $selectedSemester,
         ] = $this->prepareFilterContext($request);
 
-        $category = $request->get('category', 'gender');
+        $category = $this->sanitizeCategory($request->get('category'));
 
         $gender = $period ? $this->genderSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0];
         $wajibKtp = $period ? $this->wajibKtpSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0];
-        $kk = $period ? $this->kkSummary($period, $filters) : ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
         $ageGroups = $period ? $this->ageGroupSummary($period, $filters) : [];
         $singleAges = $period ? $this->singleAgeSummary($period, $filters) : [];
         $education = $period ? $this->educationSummary($period, $filters) : [];
@@ -632,7 +613,6 @@ class PublicDashboardController extends Controller
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
-            'kk' => 'Kartu Keluarga',
         ];
         $chartsNeedingTags = [
             'age',
@@ -648,8 +628,6 @@ class PublicDashboardController extends Controller
             'occupation',
         ];
 
-        $kkChart = $this->buildKkChart($chartTitles['kk'], $kk);
-
         $charts = [
             'gender' => $this->buildGenderChart($chartTitles['gender'], $gender),
             'age' => $this->buildSeriesChart($chartTitles['age'], $ageGroups),
@@ -660,7 +638,6 @@ class PublicDashboardController extends Controller
             'household' => $this->buildSeriesChart($chartTitles['household'], $headHouseholds),
             'religion' => $this->buildSeriesChart($chartTitles['religion'], $religions),
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $wajibKtp),
-            'kk' => $kkChart,
         ];
 
         return view('public.charts-fullscreen', [
@@ -722,7 +699,7 @@ class PublicDashboardController extends Controller
         $compareDistrict = ($compareDistrict === '' || $compareDistrict === null) ? null : (int) $compareDistrict;
         $compareVillage = ($compareVillage === '' || $compareVillage === null) ? null : (int) $compareVillage;
 
-        $category = $request->get('category', 'gender');
+        $category = $this->sanitizeCategory($request->get('category'));
 
         // Resolve periods untuk primary
         $primaryPeriod = null;
@@ -791,7 +768,6 @@ class PublicDashboardController extends Controller
         // Get summary data untuk primary
         $primaryGender = $primaryPeriod ? $this->genderSummary($primaryPeriod, $primaryFilters) : ['male' => 0, 'female' => 0, 'total' => 0];
         $primaryWajibKtp = $primaryPeriod ? $this->wajibKtpSummary($primaryPeriod, $primaryFilters) : ['male' => 0, 'female' => 0, 'total' => 0];
-        $primaryKk = $primaryPeriod ? $this->kkSummary($primaryPeriod, $primaryFilters) : ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
         $primaryAgeGroups = $primaryPeriod ? $this->ageGroupSummary($primaryPeriod, $primaryFilters) : [];
         $primarySingleAges = $primaryPeriod ? $this->singleAgeSummary($primaryPeriod, $primaryFilters) : [];
         $primaryEducation = $primaryPeriod ? $this->educationSummary($primaryPeriod, $primaryFilters) : [];
@@ -803,7 +779,6 @@ class PublicDashboardController extends Controller
         // Get summary data untuk compare
         $compareGender = $comparePeriod ? $this->genderSummary($comparePeriod, $compareFilters) : ['male' => 0, 'female' => 0, 'total' => 0];
         $compareWajibKtp = $comparePeriod ? $this->wajibKtpSummary($comparePeriod, $compareFilters) : ['male' => 0, 'female' => 0, 'total' => 0];
-        $compareKk = $comparePeriod ? $this->kkSummary($comparePeriod, $compareFilters) : ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
         $compareAgeGroups = $comparePeriod ? $this->ageGroupSummary($comparePeriod, $compareFilters) : [];
         $compareSingleAges = $comparePeriod ? $this->singleAgeSummary($comparePeriod, $compareFilters) : [];
         $compareEducation = $comparePeriod ? $this->educationSummary($comparePeriod, $compareFilters) : [];
@@ -822,7 +797,6 @@ class PublicDashboardController extends Controller
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
-            'kk' => 'Kartu Keluarga',
         ];
 
         $chartsNeedingTags = [
@@ -851,7 +825,6 @@ class PublicDashboardController extends Controller
             'household' => $this->buildSeriesChart($chartTitles['household'], $primaryHeadHouseholds),
             'religion' => $this->buildSeriesChart($chartTitles['religion'], $primaryReligions),
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $primaryWajibKtp),
-            'kk' => $this->buildKkChart($chartTitles['kk'], $primaryKk),
         ];
 
         // Build charts for compare
@@ -865,7 +838,6 @@ class PublicDashboardController extends Controller
             'household' => $this->buildSeriesChart($chartTitles['household'], $compareHeadHouseholds),
             'religion' => $this->buildSeriesChart($chartTitles['religion'], $compareReligions),
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $compareWajibKtp),
-            'kk' => $this->buildKkChart($chartTitles['kk'], $compareKk),
         ];
 
         return view('public.compare-fullscreen', [
@@ -1476,34 +1448,6 @@ class PublicDashboardController extends Controller
         return $this->formatMatrixResult($results, $labels, $context);
     }
 
-    private function kkMatrix(?array $period, array $filters): array
-    {
-        $labels = [
-            'total' => 'Total KK',
-            'printed' => 'Sudah Cetak KK',
-            'not_printed' => 'Belum Cetak KK',
-        ];
-        if (!$period) {
-            return $this->buildEmptyMatrix($labels, $this->resolveAreaContext($filters));
-        }
-
-        $context = $this->prepareAreaQuery('pop_kk', $period, $filters);
-        $query = $context['query']
-            ->selectRaw('SUM(pop_kk.male) as total_m')
-            ->selectRaw('SUM(pop_kk.female) as total_f')
-            ->selectRaw('SUM(pop_kk.male_printed) as printed_m')
-            ->selectRaw('SUM(pop_kk.female_printed) as printed_f')
-            ->selectRaw('SUM(pop_kk.male_not_printed) as not_printed_m')
-            ->selectRaw('SUM(pop_kk.female_not_printed) as not_printed_f');
-
-        $this->applyGroupBy($query, $context['groupBy']);
-        $query->orderBy('area_name');
-
-        $results = $query->get();
-
-        return $this->formatMatrixResult($results, $labels, $context);
-    }
-
     private function maritalMatrix(?array $period, array $filters): array
     {
         $labels = $this->maritalLabels();
@@ -2012,30 +1956,6 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function buildKkChart(string $title, array $summary): array
-    {
-        $labels = ['Total KK', 'Sudah Cetak', 'Belum Cetak'];
-        $data = [
-            (int) ($summary['total'] ?? 0),
-            (int) ($summary['total_printed'] ?? 0),
-            (int) ($summary['total_not_printed'] ?? 0),
-        ];
-        $colors = ['#28a745', '#377dff', '#ffc107'];
-
-        return [
-            'title' => $title,
-            'labels' => $labels,
-            'datasets' => [
-                $this->makeDataset('Kartu Keluarga', $data, $colors),
-            ],
-            'legendItems' => array_map(
-                fn($label, $color) => ['label' => $label, 'color' => $color],
-                $labels,
-                $colors
-            ),
-        ];
-    }
-
     private function buildSeriesChart(string $title, array $rows): array
     {
         if (empty($rows)) {
@@ -2095,39 +2015,6 @@ class PublicDashboardController extends Controller
             'cerai_hidup',
             'cerai_mati',
         ]);
-    }
-
-    private function kkSummary(?array $period, array $filters = []): array
-    {
-        if (!$period) {
-            return ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
-        }
-
-        $query = DB::table('pop_kk')
-            ->where('year', $period['year'])
-            ->where('semester', $period['semester']);
-
-        $this->applyAreaScope($query, $filters);
-
-        $row = $query
-            ->selectRaw('SUM(male) as male, SUM(female) as female, SUM(total) as total, SUM(male_printed) as male_printed, SUM(female_printed) as female_printed, SUM(total_printed) as total_printed, SUM(male_not_printed) as male_not_printed, SUM(female_not_printed) as female_not_printed, SUM(total_not_printed) as total_not_printed')
-            ->first();
-
-        if (!$row) {
-            return ['male' => 0, 'female' => 0, 'total' => 0, 'male_printed' => 0, 'female_printed' => 0, 'total_printed' => 0, 'male_not_printed' => 0, 'female_not_printed' => 0, 'total_not_printed' => 0];
-        }
-
-        return [
-            'male' => (int) $row->male,
-            'female' => (int) $row->female,
-            'total' => (int) $row->total,
-            'male_printed' => (int) $row->male_printed,
-            'female_printed' => (int) $row->female_printed,
-            'total_printed' => (int) $row->total_printed,
-            'male_not_printed' => (int) $row->male_not_printed,
-            'female_not_printed' => (int) $row->female_not_printed,
-            'total_not_printed' => (int) $row->total_not_printed,
-        ];
     }
 
     private function religionSummary(?array $period, array $filters = []): array
@@ -2327,6 +2214,23 @@ class PublicDashboardController extends Controller
         ];
     }
 
+    private function sanitizeCategory(?string $category): string
+    {
+        $allowedCategories = [
+            'gender',
+            'age',
+            'single-age',
+            'education',
+            'occupation',
+            'marital',
+            'household',
+            'religion',
+            'wajib-ktp',
+        ];
+
+        return in_array($category, $allowedCategories, true) ? $category : 'gender';
+    }
+
     public function downloadTablePdf(Request $request)
     {
         [
@@ -2343,7 +2247,7 @@ class PublicDashboardController extends Controller
             'selectedSemester' => $selectedSemester,
         ] = $this->prepareFilterContext($request);
 
-        $category = $request->get('category', 'gender');
+        $category = $this->sanitizeCategory($request->get('category'));
 
         if (!$period) {
             return redirect()->route('public.data')->with('error', 'Pilih periode terlebih dahulu');
@@ -2359,14 +2263,12 @@ class PublicDashboardController extends Controller
         $marital = $this->maritalStatusSummary($period, $filters);
         $headHouseholds = $this->headOfHouseholdSummary($period, $filters);
         $religions = $this->religionSummary($period, $filters);
-        $kk = $this->kkSummary($period, $filters);
         $areaTable = $this->areaPopulationTable($period, $filters);
         $educationMatrix = $this->educationMatrix($period, $filters);
         $wajibKtpMatrix = $this->wajibKtpMatrix($period, $filters);
         $maritalMatrix = $this->maritalMatrix($period, $filters);
         $headHouseholdMatrix = $this->headHouseholdMatrix($period, $filters);
         $religionMatrix = $this->religionMatrix($period, $filters);
-        $kkMatrix = $this->kkMatrix($period, $filters);
 
         $tabs = [
             'gender' => 'Jenis Kelamin',
@@ -2375,7 +2277,6 @@ class PublicDashboardController extends Controller
             'education' => 'Pendidikan',
             'occupation' => 'Pekerjaan',
             'marital' => 'Status Perkawinan',
-            'kk' => 'Kartu Keluarga',
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
@@ -2410,14 +2311,12 @@ class PublicDashboardController extends Controller
             'marital' => $marital,
             'headHouseholds' => $headHouseholds,
             'religions' => $religions,
-            'kk' => $kk,
             'areaTable' => $areaTable,
             'educationMatrix' => $educationMatrix,
             'wajibKtpMatrix' => $wajibKtpMatrix,
             'maritalMatrix' => $maritalMatrix,
             'headHouseholdMatrix' => $headHouseholdMatrix,
             'religionMatrix' => $religionMatrix,
-            'kkMatrix' => $kkMatrix,
         ])->setPaper('a4', 'landscape');
 
         $filename = 'data-' . $category . '-' . $period['year'] . '-s' . $period['semester'] . '.pdf';
@@ -2445,7 +2344,7 @@ class PublicDashboardController extends Controller
             'selectedSemester' => $selectedSemester,
         ] = $this->prepareFilterContext($request);
 
-        $category = $request->get('category', 'gender');
+        $category = $this->sanitizeCategory($request->get('category'));
 
         if (!$period) {
             return redirect()->route('public.data')->with('error', 'Pilih periode terlebih dahulu');
@@ -2461,14 +2360,12 @@ class PublicDashboardController extends Controller
         $marital = $this->maritalStatusSummary($period, $filters);
         $headHouseholds = $this->headOfHouseholdSummary($period, $filters);
         $religions = $this->religionSummary($period, $filters);
-        $kk = $this->kkSummary($period, $filters);
         $areaTable = $this->areaPopulationTable($period, $filters);
         $educationMatrix = $this->educationMatrix($period, $filters);
         $wajibKtpMatrix = $this->wajibKtpMatrix($period, $filters);
         $maritalMatrix = $this->maritalMatrix($period, $filters);
         $headHouseholdMatrix = $this->headHouseholdMatrix($period, $filters);
         $religionMatrix = $this->religionMatrix($period, $filters);
-        $kkMatrix = $this->kkMatrix($period, $filters);
 
         $tabs = [
             'gender' => 'Jenis Kelamin',
@@ -2477,7 +2374,6 @@ class PublicDashboardController extends Controller
             'education' => 'Pendidikan',
             'occupation' => 'Pekerjaan',
             'marital' => 'Status Perkawinan',
-            'kk' => 'Kartu Keluarga',
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
@@ -2654,14 +2550,13 @@ class PublicDashboardController extends Controller
                 $sheet->getStyle('B' . $row . ':E' . $row)->getFont()->setBold(true);
                 $row++;
             }
-        } elseif (in_array($category, ['education', 'wajib-ktp', 'marital', 'household', 'religion', 'kk'])) {
+        } elseif (in_array($category, ['education', 'wajib-ktp', 'marital', 'household', 'religion'])) {
             $matrix = match($category) {
                 'education' => $educationMatrix,
                 'wajib-ktp' => $wajibKtpMatrix,
                 'marital' => $maritalMatrix,
                 'household' => $headHouseholdMatrix,
                 'religion' => $religionMatrix,
-                'kk' => $kkMatrix,
                 default => [],
             };
 
@@ -2784,7 +2679,7 @@ class PublicDashboardController extends Controller
             'selectedSemester' => $selectedSemester,
         ] = $this->prepareFilterContext($request);
 
-        $category = $request->get('category', 'gender');
+        $category = $this->sanitizeCategory($request->get('category'));
 
         if (!$period) {
             return redirect()->route('public.charts')->with('error', 'Pilih periode terlebih dahulu');
@@ -2792,7 +2687,6 @@ class PublicDashboardController extends Controller
 
         $gender = $this->genderSummary($period, $filters);
         $wajibKtp = $this->wajibKtpSummary($period, $filters);
-        $kk = $this->kkSummary($period, $filters);
         $ageGroups = $this->ageGroupSummary($period, $filters);
         $singleAges = $this->singleAgeSummary($period, $filters);
         $education = $this->educationSummary($period, $filters);
@@ -2811,7 +2705,6 @@ class PublicDashboardController extends Controller
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
-            'kk' => 'Kartu Keluarga',
         ];
 
         $charts = [
@@ -2824,7 +2717,6 @@ class PublicDashboardController extends Controller
             'household' => $this->buildSeriesChart($chartTitles['household'], $headHouseholds),
             'religion' => $this->buildSeriesChart($chartTitles['religion'], $religions),
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $wajibKtp),
-            'kk' => $this->buildKkChart($chartTitles['kk'], $kk),
         ];
 
         $districtName = $selectedDistrict ? optional($districts->firstWhere('id', (int) $selectedDistrict))->name : null;
@@ -2884,7 +2776,7 @@ class PublicDashboardController extends Controller
         $compareDistrict = ($compareDistrict === '' || $compareDistrict === null) ? null : (int) $compareDistrict;
         $compareVillage = ($compareVillage === '' || $compareVillage === null) ? null : (int) $compareVillage;
 
-        $category = $request->get('category', 'gender');
+        $category = $this->sanitizeCategory($request->get('category'));
 
         // Resolve periods
         $primaryPeriod = null;
@@ -2950,7 +2842,6 @@ class PublicDashboardController extends Controller
         // Get data
         $primaryGender = $this->genderSummary($primaryPeriod, $primaryFilters);
         $primaryWajibKtp = $this->wajibKtpSummary($primaryPeriod, $primaryFilters);
-        $primaryKk = $this->kkSummary($primaryPeriod, $primaryFilters);
         $primaryAgeGroups = $this->ageGroupSummary($primaryPeriod, $primaryFilters);
         $primarySingleAges = $this->singleAgeSummary($primaryPeriod, $primaryFilters);
         $primaryEducation = $this->educationSummary($primaryPeriod, $primaryFilters);
@@ -2961,7 +2852,6 @@ class PublicDashboardController extends Controller
 
         $compareGender = $this->genderSummary($comparePeriod, $compareFilters);
         $compareWajibKtp = $this->wajibKtpSummary($comparePeriod, $compareFilters);
-        $compareKk = $this->kkSummary($comparePeriod, $compareFilters);
         $compareAgeGroups = $this->ageGroupSummary($comparePeriod, $compareFilters);
         $compareSingleAges = $this->singleAgeSummary($comparePeriod, $compareFilters);
         $compareEducation = $this->educationSummary($comparePeriod, $compareFilters);
@@ -2980,7 +2870,6 @@ class PublicDashboardController extends Controller
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
-            'kk' => 'Kartu Keluarga',
         ];
 
         $primaryCharts = [
@@ -2993,7 +2882,6 @@ class PublicDashboardController extends Controller
             'household' => $this->buildSeriesChart($chartTitles['household'], $primaryHeadHouseholds),
             'religion' => $this->buildSeriesChart($chartTitles['religion'], $primaryReligions),
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $primaryWajibKtp),
-            'kk' => $this->buildKkChart($chartTitles['kk'], $primaryKk),
         ];
 
         $compareCharts = [
@@ -3006,7 +2894,6 @@ class PublicDashboardController extends Controller
             'household' => $this->buildSeriesChart($chartTitles['household'], $compareHeadHouseholds),
             'religion' => $this->buildSeriesChart($chartTitles['religion'], $compareReligions),
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $compareWajibKtp),
-            'kk' => $this->buildKkChart($chartTitles['kk'], $compareKk),
         ];
 
         // Build labels

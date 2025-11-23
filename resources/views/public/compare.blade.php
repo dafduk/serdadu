@@ -108,7 +108,6 @@
             'education' => 'Pendidikan',
             'occupation' => 'Pekerjaan',
             'marital' => 'Status Perkawinan',
-            'kk' => 'Kartu Keluarga',
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
@@ -137,10 +136,6 @@
             'marital' => [
                 'horizontal' => 'Kategori status perkawinan',
                 'vertical' => 'Jumlah penduduk (jiwa)',
-            ],
-            'kk' => [
-                'horizontal' => 'Status penerbitan kartu keluarga',
-                'vertical' => 'Jumlah kartu keluarga',
             ],
             'household' => [
                 'horizontal' => 'Jenis kepala keluarga',
@@ -633,7 +628,7 @@
             const horizontalChartKeys = @json($horizontalChartKeys);
             const chartInstances = {};
             const chartsWithValueLabels = Object.keys(primaryCharts || {});
-            const totalLabelTargets = ['Total', 'Jumlah Penduduk', 'Wajib KTP', 'Kartu Keluarga'];
+            const totalLabelTargets = ['Total', 'Jumlah Penduduk', 'Wajib KTP'];
 
             const primaryLabel = @json($primaryLabel);
             const compareLabel = @json($compareLabel);
@@ -930,8 +925,7 @@
                                 'marital': 'Status Perkawinan',
                                 'household': 'Kepala Keluarga',
                                 'religion': 'Agama',
-                                'wajib-ktp': 'Wajib KTP',
-                                'kk': 'Kartu Keluarga'
+                                'wajib-ktp': 'Wajib KTP'
                             };
                             breadcrumbCategoryText.textContent = categoryLabels[category] || 'Jenis Kelamin';
                         }

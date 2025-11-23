@@ -25,7 +25,6 @@
             'education' => 'Pendidikan',
             'occupation' => 'Pekerjaan',
             'marital' => 'Status Perkawinan',
-            'kk' => 'Kartu Keluarga',
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
@@ -460,25 +459,6 @@
                     </div>
                 </div>
 
-                {{-- Tab matriks Kartu Keluarga (KK) --}}
-                <div class="dk-tab-pane hidden" id="tab-kk" role="tabpanel"
-                    aria-labelledby="tab-kk-tab">
-                    @include('public.partials.table-heading', [
-                        'title' => $tabs['kk'],
-                        'areaDescriptor' => $areaDescriptor,
-                        'periodLabel' => $periodLabel,
-                        'showDownloadButtons' => true,
-                        'activeCategory' => 'kk',
-                    ])
-                    <div class="overflow-x-auto dk-table-scroll">
-                        @include('public.partials.matrix-table', [
-                            'matrix' => $kkMatrix,
-                            'emptyMessage' => 'Data kartu keluarga belum tersedia.'
-                        ])
-                        
-                    </div>
-                </div>
-
                 {{-- Tab matriks kepala keluarga --}}
                 <div class="dk-tab-pane hidden" id="tab-household" role="tabpanel"
                     aria-labelledby="tab-household-tab">
@@ -633,7 +613,6 @@
                             'education': 'Pendidikan',
                             'occupation': 'Pekerjaan',
                             'marital': 'Status Perkawinan',
-                            'kk': 'Kartu Keluarga',
                             'household': 'Kepala Keluarga',
                             'religion': 'Agama',
                             'wajib-ktp': 'Wajib KTP'

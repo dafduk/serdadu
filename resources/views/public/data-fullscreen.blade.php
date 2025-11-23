@@ -42,7 +42,6 @@
             'education' => 'Pendidikan',
             'occupation' => 'Pekerjaan',
             'marital' => 'Status Perkawinan',
-            'kk' => 'Kartu Keluarga',
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
@@ -284,11 +283,6 @@
                         'matrix' => $religionMatrix,
                         'emptyMessage' => 'Data agama belum tersedia.'
                     ])
-                @elseif ($category === 'kk')
-                    @include('public.partials.matrix-table', [
-                        'matrix' => $kkMatrix,
-                        'emptyMessage' => 'Data kartu keluarga belum tersedia.'
-                    ])
                 @else
                     <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                         <strong class="text-yellow-800">Kategori tidak ditemukan.</strong> <span class="text-yellow-700">Kategori "{{ $category }}" belum didukung.</span>
@@ -301,4 +295,3 @@
 
 </body>
 </html>
-

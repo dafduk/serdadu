@@ -143,7 +143,6 @@
             'education' => 'Pendidikan',
             'occupation' => 'Pekerjaan',
             'marital' => 'Status Perkawinan',
-            'kk' => 'Kartu Keluarga',
             'household' => 'Kepala Keluarga',
             'religion' => 'Agama',
             'wajib-ktp' => 'Wajib KTP',
@@ -173,10 +172,6 @@
             'marital' => [
                 'horizontal' => 'Kategori status perkawinan',
                 'vertical' => 'Jumlah penduduk (jiwa)',
-            ],
-            'kk' => [
-                'horizontal' => 'Status penerbitan kartu keluarga',
-                'vertical' => 'Jumlah kartu keluarga',
             ],
             'household' => [
                 'horizontal' => 'Jenis kepala keluarga',
@@ -594,51 +589,6 @@
                     @endif
                 </div>
 
-                {{-- Tab grafik kartu keluarga --}}
-                <div class="dk-tab-pane hidden" id="tab-kk" role="tabpanel"
-                    aria-labelledby="tab-kk-tab">
-                    <div class="mb-4 flex flex-wrap gap-3 items-start justify-between">
-                        <div class="flex-1 min-w-[280px]">
-                            @include('public.partials.table-heading', [
-                                'title' => $tabs['kk'],
-                                'areaDescriptor' => $areaDescriptor,
-                                'periodLabel' => $periodLabel,
-                                'fullscreenRoute' => 'public.charts.fullscreen',
-                                'customDownloads' => view('public.partials.chart-download-button', ['category' => 'kk'])->render(),
-                                'showDownloadButtons' => false,
-                            ])
-                        </div>
-                    </div>
-                    @php
-                        $chart = $charts['kk'] ?? null;
-                        $chartHeight = '600px';
-                    @endphp
-                    @if (!$chart || empty($chart['labels']))
-                        <div class="flex flex-col items-center justify-center py-16 px-4 sm:py-20 md:py-24 text-center">
-                            <div class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mb-4 sm:mb-6 text-gray-400 opacity-50">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                </svg>
-                            </div>
-                            <p class="text-sm sm:text-base text-gray-500 font-medium">Data {{ strtolower($tabs['kk']) }} belum tersedia untuk filter yang dipilih.</p>
-                        </div>
-                    @else
-                        <div class="chart-wrapper-container">
-                            <div class="chart-wrapper bg-gradient-to-br from-white via-gray-50 to-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 md:p-6 shadow-sm border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-300 ease-out">
-                                <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent rounded-2xl sm:rounded-3xl pointer-events-none"></div>
-                                <div class="relative chart-container w-full" style="height: {{ $chartHeight }}; min-height: {{ $chartHeight }};">
-                                    <canvas id="chart-kk" data-chart-key="kk" class="w-full h-full"></canvas>
-                                </div>
-                                @include('public.partials.chart-axis-labels', [
-                                    'axis' => $axisDescriptions['kk'] ?? [],
-                                    'flipAxes' => in_array('kk', $horizontalChartKeys),
-                                ])
-                                <div class="chart-legend mt-4 pt-4 border-t border-gray-200" id="legend-kk"></div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-
                 {{-- Tab grafik kepala keluarga --}}
                 <div class="dk-tab-pane hidden" id="tab-household" role="tabpanel"
                     aria-labelledby="tab-household-tab">
@@ -787,7 +737,7 @@
             const chartsAngledTags = @json($chartsAngledTags);
             const chartInstances = {};
             const chartsWithValueLabels = Object.keys(chartConfigs || {});
-            const totalLabelTargets = ['Total', 'Jumlah Penduduk', 'Wajib KTP', 'Kartu Keluarga'];
+            const totalLabelTargets = ['Total', 'Jumlah Penduduk', 'Wajib KTP'];
             const horizontalChartKeys = @json($horizontalChartKeys);
             const formatNumber = (value) => new Intl.NumberFormat('id-ID').format(value);
 
