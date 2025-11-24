@@ -266,7 +266,7 @@
             @if (empty($periods))
                 <strong class="text-yellow-800">Data belum tersedia.</strong> <span class="text-yellow-700">Unggah dataset terlebih dahulu untuk menampilkan grafik agregat.</span>
             @else
-                <strong class="text-yellow-800">Pilih Filter.</strong> <span class="text-yellow-700">Silakan pilih tahun, semester, kecamatan, atau desa/kelurahan untuk menampilkan grafik agregat.</span>
+                <strong class="text-[#009B4D]">Pilih Filter.</strong> <span class="text-[#009B4D]">Silakan pilih tahun, semester, kecamatan, atau desa/kelurahan untuk menampilkan grafik agregat.</span>
             @endif
         </div>
     @else

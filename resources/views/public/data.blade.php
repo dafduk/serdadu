@@ -6,6 +6,14 @@
         .dk-table-heading {
             margin-bottom: 2rem;
         }
+
+        /* Row highlight styling for tables (light + dark) */
+        .table-row-highlight {
+            background-color: #f3f6fb;
+        }
+        .dark .table-row-highlight {
+            background-color: #152540;
+        }
         
         /* Tambahkan jarak tambahan antara label dan tabel pada layar kecil */
         @media (max-width: 640px) {
@@ -103,11 +111,11 @@
 
     {{-- Tampilkan pesan jika belum ada dataset yang dipilih atau diunggah --}}
     @if (!$period)
-        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 dk-card">
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 dk-card text-[#009B4D]">
             @if (empty($periods))
-                <strong class="text-yellow-800">Data belum tersedia.</strong> <span class="text-yellow-700">Unggah dataset terlebih dahulu untuk menampilkan ringkasan agregat.</span>
+                <strong class="text-[#009B4D]">Data belum tersedia.</strong> <span class="text-[#009B4D]">Unggah dataset terlebih dahulu untuk menampilkan ringkasan agregat.</span>
             @else
-                <strong class="text-yellow-800">Pilih Filter.</strong> <span class="text-yellow-700">Silakan pilih tahun, semester, kecamatan, atau desa/kelurahan untuk menampilkan ringkasan agregat.</span>
+                <strong class="text-[#009B4D]">Pilih Filter.</strong> <span class="text-[#009B4D]">Silakan pilih tahun, semester, kecamatan, atau desa/kelurahan untuk menampilkan ringkasan agregat.</span>
             @endif
         </div>
     @else
@@ -189,7 +197,10 @@
                                         $rowFemale = isset($row['female']) ? $row['female'] : 0;
                                         $rowTotal = isset($row['total']) ? $row['total'] : 0;
                                     @endphp
-                                    <tr class="{{ $isHighlighted ? 'bg-gray-100' : '' }}">
+                                    @php
+                                        $rowClass = $isHighlighted ? 'table-row-highlight' : '';
+                                    @endphp
+                                    <tr class="{{ $rowClass }}">
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ \Illuminate\Support\Str::title($rowName) }}</td>
                                         <td class="text-right">{{ number_format($rowMale) }}</td>
@@ -472,7 +483,8 @@
                     <div class="overflow-x-auto dk-table-scroll">
                         @include('public.partials.matrix-table', [
                             'matrix' => $headHouseholdMatrix,
-                            'emptyMessage' => 'Data kepala keluarga belum tersedia.'
+                            'emptyMessage' => 'Data kepala keluarga belum tersedia.',
+                            'showOverallSum' => true
                         ])
                         
                     </div>

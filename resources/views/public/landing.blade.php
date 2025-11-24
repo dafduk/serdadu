@@ -40,9 +40,20 @@
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
         }
-        .metric-card-primary { --gradient-start: #007151; --gradient-end: #00a876; }
-        .metric-card-male { --gradient-start: #3b82f6; --gradient-end: #2563eb; }
-        .metric-card-female { --gradient-start: #ec4899; --gradient-end: #db2777; }
+        .metric-card {
+            transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+            filter: brightness(1.05) saturate(1.05);
+        }
+        .metric-card-primary { --gradient-start: #009B4D; --gradient-end: #007a3d; }
+        .metric-card-male { --gradient-start: #4f7df3; --gradient-end: #2b5fcf; }
+        .metric-card-female { --gradient-start: #e85b9d; --gradient-end: #c3387c; }
+        .dark .metric-card-primary { --gradient-start: #00b261; --gradient-end: #008b45; }
+        .dark .metric-card-male { --gradient-start: #60a5fa; --gradient-end: #3b82f6; }
+        .dark .metric-card-female { --gradient-start: #f472b6; --gradient-end: #db2777; }
         .progress-bar {
             height: 4px;
             background: rgba(255,255,255,0.3);
@@ -92,7 +103,7 @@
                         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3 mb-6">
                             <h2 class="text-lg font-semibold text-gray-900">Data Agregat Kependudukan Terbaru</h2>
                             @if($period)
-                                <div class="flex-shrink-0 px-2 py-0.5 sm:px-2.5 sm:py-1 lg:px-3 lg:py-1 bg-[#007151] text-white text-[10px] sm:text-[11px] lg:text-xs font-medium rounded-full whitespace-nowrap self-start sm:self-auto">
+                                <div class="flex-shrink-0 px-2 py-0.5 sm:px-2.5 sm:py-1 lg:px-3 lg:py-1 bg-[#009B4D] text-white text-[10px] sm:text-[11px] lg:text-xs font-medium rounded-full whitespace-nowrap self-start sm:self-auto">
                                     Semester {{ $period['semester'] }} Tahun {{ $period['year'] }}
                                 </div>
                             @endif
@@ -107,11 +118,11 @@
                                     <span class="text-sm text-gray-900 font-semibold">Madiun</span>
                                 </div>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-sm font-medium text-gray-700">Jumlah Daerah</span>
+                                    <span class="text-sm font-medium text-gray-700">Jumlah Kecamatan</span>
                                     <span class="text-sm text-gray-900 font-semibold">{{ number_format($districtCount) }}</span>
                                 </div>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-sm font-medium text-gray-700">Jumlah Desa/Kel</span>
+                                    <span class="text-sm font-medium text-gray-700">Jumlah Desa/Kelurahan</span>
                                     <span class="text-sm text-gray-900 font-semibold">{{ number_format($villageCount) }}</span>
                                 </div>
                             </div>
@@ -206,7 +217,7 @@
                                         <label for="landing-district-filter" class="block text-xs font-medium text-gray-700 mb-1.5">Kecamatan</label>
                                         <select 
                                             id="landing-district-filter" 
-                                            class="w-full lg:w-64 text-sm border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#007151] focus:border-transparent transition-colors"
+                                            class="w-full lg:w-64 text-sm border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-transparent transition-colors"
                                         >
                                             <option value="">Semua Kecamatan</option>
                                             @foreach($districtOptions as $district)
@@ -222,7 +233,7 @@
                         <div class="relative flex-1">
                             <div id="landing-map-loader" class="absolute inset-0 bg-white/90 backdrop-blur-sm z-10 flex items-center justify-center">
                                 <div class="text-center">
-                                    <div class="inline-block w-8 h-8 border-4 border-[#007151] border-t-transparent rounded-full animate-spin mb-3"></div>
+                                    <div class="inline-block w-8 h-8 border-4 border-[#009B4D] border-t-transparent rounded-full animate-spin mb-3"></div>
                                     <div class="text-sm text-gray-600 font-medium">Memuat peta...</div>
                                 </div>
                             </div>
@@ -1205,7 +1216,7 @@
                                 {
                                     label: 'Jumlah Penduduk',
                                     data: growthData.data || [],
-                                    borderColor: '#007151',
+                                    borderColor: '#009B4D',
                                     backgroundColor: 'rgba(0, 113, 81, 0.1)',
                                     borderWidth: 2,
                                     fill: true,
@@ -1217,7 +1228,7 @@
                                 {
                                     label: 'Laju Pertumbuhan (%)',
                                     data: processedGrowthRates,
-                                    borderColor: '#00a876',
+                                    borderColor: '#009B4D',
                                     backgroundColor: 'rgba(0, 168, 118, 0.1)',
                                     borderWidth: 2,
                                     fill: false,

@@ -579,7 +579,7 @@
             <div class="space-y-1">
                 <a 
                     href="{{ route('public.landing') }}"
-                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.landing') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.landing') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
                     title="Home"
                     data-sidebar-nav-item
                 >
@@ -589,7 +589,7 @@
                 
                 <a 
                     href="{{ route('public.data') }}"
-                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.data') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.data') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
                     title="Tabel"
                     data-sidebar-nav-item
                 >
@@ -599,7 +599,7 @@
                 
                 <a 
                     href="{{ route('public.charts') }}"
-                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.charts') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.charts') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
                     title="Grafik"
                     data-sidebar-nav-item
                 >
@@ -609,7 +609,7 @@
                 
                 <a 
                     href="{{ route('public.compare') }}"
-                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.compare') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.compare') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
                     title="Compare"
                     data-sidebar-nav-item
                 >
@@ -619,7 +619,7 @@
                 
                 <a 
                     href="{{ route('public.terms') }}"
-                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.terms') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.terms') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
                     title="Syarat & Ketentuan"
                     data-sidebar-nav-item
                 >
@@ -636,8 +636,8 @@
         >
             <div class="text-xs text-gray-500 text-center">
                 Copyright © 2025 
-                <a href="{{ url('/') }}" class="text-[#007151] hover:underline" target="_blank" rel="noopener">Serdadu</a>
-                <a href="https://dukcapil.madiunkab.go.id" class="text-[#007151] hover:underline" target="_blank" rel="noopener">Dukcapil Kab. Madiun</a>
+                <a href="{{ url('/') }}" class="text-[#009B4D] hover:underline" target="_blank" rel="noopener">Serdadu</a>
+                <a href="https://dukcapil.madiunkab.go.id" class="text-[#009B4D] hover:underline" target="_blank" rel="noopener">Dukcapil Kab. Madiun</a>
             </div>
             <div class="text-xs text-gray-500 text-center">Versi 0.1.2</div>
         </div>
@@ -717,7 +717,7 @@
         <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
             <a 
                 href="{{ route('public.landing') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.landing') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.landing') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
             >
                 <img src="{{ asset('img/home.png') }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Beranda</span>
@@ -725,7 +725,7 @@
             
             <a 
                 href="{{ route('public.data') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.data') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.data') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
             >
                 <img src="{{ asset('img/table.png') }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Tabel</span>
@@ -733,7 +733,7 @@
             
             <a 
                 href="{{ route('public.charts') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.charts') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.charts') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
             >
                 <img src="{{ $chartIconAsset }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Grafik</span>
@@ -741,7 +741,7 @@
             
             <a 
                 href="{{ route('public.compare') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.compare') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.compare') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
             >
                 <img src="{{ $compareIconAsset }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Perbandingan</span>
@@ -749,7 +749,7 @@
             
             <a 
                 href="{{ route('public.terms') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.terms') ? 'bg-[#007151] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('public.terms') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
             >
                 <img src="{{ asset('img/terms.png') }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Syarat & Ketentuan</span>
@@ -759,8 +759,8 @@
         <div class="p-4 border-t border-gray-200 space-y-1 mt-auto flex-shrink-0">
             <div class="text-xs text-gray-500 text-center">
                 Copyright © 2025 
-                <a href="{{ url('/') }}" class="text-[#007151] hover:underline" target="_blank" rel="noopener">Serdadu</a>
-                <a href="https://dukcapil.madiunkab.go.id" class="text-[#007151] hover:underline" target="_blank" rel="noopener">Dukcapil Kab. Madiun</a>
+                <a href="{{ url('/') }}" class="text-[#009B4D] hover:underline" target="_blank" rel="noopener">Serdadu</a>
+                <a href="https://dukcapil.madiunkab.go.id" class="text-[#009B4D] hover:underline" target="_blank" rel="noopener">Dukcapil Kab. Madiun</a>
             </div>
             <div class="text-xs text-gray-500 text-center">Versi 0.1.2</div>
         </div>
@@ -961,7 +961,7 @@
                 @php $canGoBack = count($breadcrumbs) > 1; @endphp
                 <button 
                     @if($canGoBack) onclick="window.history.back()" @else disabled aria-disabled="true" @endif
-                    class="flex items-center justify-center w-7 h-7 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#007151] focus:ring-offset-2 {{ $canGoBack ? 'text-gray-500 hover:text-gray-700 hover:bg-gray-100' : 'text-gray-300 cursor-default' }}"
+                    class="flex items-center justify-center w-7 h-7 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:ring-offset-2 {{ $canGoBack ? 'text-gray-500 hover:text-gray-700 hover:bg-gray-100' : 'text-gray-300 cursor-default' }}"
                     title="Kembali"
                     aria-label="Kembali"
                 >
@@ -1036,7 +1036,7 @@
             </nav>
             <button 
                 type="button"
-                class="theme-toggle-btn inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-colors"
+                class="theme-toggle-btn hidden lg:inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-colors"
                 data-theme-toggle
                 aria-label="Toggle theme"
             >
@@ -1061,10 +1061,10 @@
         <div class="flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
             <div class="text-xs text-gray-500 whitespace-normal sm:whitespace-nowrap">
                 Copyright © 2025 
-                <a href="{{ url('/') }}" class="text-[#007151] hover:underline" target="_blank" rel="noopener">Serdadu</a>
-                <a href="https://dukcapil.madiunkab.go.id" class="text-[#007151] hover:underline" target="_blank" rel="noopener">Dukcapil Kab. Madiun</a>
+                <a href="{{ url('/') }}" class="text-[#009B4D] hover:underline" target="_blank" rel="noopener">Serdadu</a>
+                <a href="https://dukcapil.madiunkab.go.id" class="text-[#009B4D] hover:underline" target="_blank" rel="noopener">Dukcapil Kab. Madiun</a>
                 <span class="mx-2">|</span>
-                <a href="{{ route('public.terms') }}" class="text-[#007151] hover:underline">Syarat & Ketentuan</a>
+                <a href="{{ route('public.terms') }}" class="text-[#009B4D] hover:underline">Syarat & Ketentuan</a>
             </div>
             <div class="flex items-center justify-center gap-2 sm:justify-end">
                 <a href="https://www.youtube.com/@dukcapilkabupatenmadiun" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-red-600 transition-colors" aria-label="YouTube" title="YouTube">

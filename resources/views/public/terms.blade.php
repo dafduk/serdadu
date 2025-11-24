@@ -8,7 +8,7 @@
         }
         
         .terms-header {
-            border-bottom: 3px solid #007151;
+            border-bottom: 3px solid #009B4D;
             padding-bottom: 1rem;
             margin-bottom: 2rem;
         }
@@ -18,7 +18,7 @@
         }
         
         .terms-section-title {
-            color: #007151;
+            color: #009B4D;
             font-weight: 700;
             font-size: 1.25rem;
             margin-bottom: 1rem;
@@ -59,7 +59,7 @@
         
         .terms-intro {
             background-color: #f3f4f6;
-            border-left: 4px solid #007151;
+            border-left: 4px solid #009B4D;
             padding: 1rem 1.5rem;
             margin-bottom: 2rem;
             border-radius: 0.375rem;

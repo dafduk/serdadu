@@ -11,13 +11,13 @@
     /* Font family - sesuai dengan font yang digunakan di layout */
     --font-family-sans: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     
-    /* Custom colors untuk proyek */
-    --color-primary: #007151;
+        /* Custom colors untuk proyek */
+    --color-primary: #009B4D;
     --color-primary-50: #f0fdf4;
     --color-primary-100: #dcfce7;
-    --color-primary-500: #007151;
-    --color-primary-600: #005a3f;
-    --color-primary-700: #00432e;
+    --color-primary-500: #009B4D;
+    --color-primary-600: #007a3d;
+    --color-primary-700: #006532;
     --color-secondary: #6b7280;
     
     /* Breakpoints default Tailwind */
@@ -81,6 +81,41 @@ body {
 
 .focus\:ring-primary:focus {
     --tw-ring-color: var(--color-primary);
+}
+
+/* Form elements */
+select {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+}
+
+select:focus {
+    border-color: #009B4D;
+    box-shadow: 0 0 0 2px rgba(0, 155, 77, 0.18);
+}
+
+select option:checked,
+select option:focus {
+    background: #009B4D !important;
+    color: #ffffff !important;
+}
+
+select option:hover {
+    background: #009B4D !important;
+    color: #ffffff !important;
+}
+
+select option:active {
+    background: #009B4D !important;
+    color: #ffffff !important;
+}
+
+select option:checked:hover,
+select option:checked:focus,
+select option:focus:hover {
+    background: #009B4D !important;
+    color: #ffffff !important;
 }
 
 /* Fix untuk sidebar collapsed - pastikan konten tidak overflow */
@@ -183,6 +218,26 @@ aside nav a span[x-show] {
 
 .dk-table tbody tr:hover {
     background-color: var(--color-surface-strong);
+}
+
+.dk-table tbody tr {
+    background-color: #ffffff;
+}
+
+.dk-table tbody tr:nth-child(even) {
+    background-color: #f6f9fd;
+}
+
+.dark .dk-table tbody tr {
+    background-color: #0f1a2d;
+}
+
+.dark .dk-table tbody tr:nth-child(even) {
+    background-color: #111f35;
+}
+
+.dark .dk-table tbody tr:hover {
+    background-color: #152540;
 }
 
 .dk-table tfoot {
@@ -312,8 +367,8 @@ aside nav a span[x-show] {
 }
 
 .dk-tab-button:hover:not(.active) {
-    color: #007151;
-    background-color: rgba(0, 113, 81, 0.08);
+    color: #009B4D;
+    background-color: rgba(0, 155, 77, 0.12);
     border-top: 2px solid transparent;
     transform: scale(1.03);
     font-size: 0.9375rem;
@@ -331,7 +386,7 @@ aside nav a span[x-show] {
     left: 0;
     right: 0;
     height: 5px;
-    background-color: #007151;
+    background-color: #009B4D;
     z-index: 30;
 }
 
@@ -350,9 +405,9 @@ button.dk-tab-button.active,
 button.dk-tab-button.active:hover,
 #aggregateTabs button.dk-tab-button.active,
 #aggregateTabs button.dk-tab-button.active:hover {
-    color: #007151 !important;
+    color: #009B4D !important;
     background-color: transparent !important;
-    border-top: 5px solid #007151 !important;
+    border-top: 5px solid #009B4D !important;
     margin-top: -3px;
     z-index: 25;
     position: relative;

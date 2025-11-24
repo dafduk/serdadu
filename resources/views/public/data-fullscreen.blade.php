@@ -276,7 +276,8 @@
                 @elseif ($category === 'household')
                     @include('public.partials.matrix-table', [
                         'matrix' => $headHouseholdMatrix,
-                        'emptyMessage' => 'Data kepala keluarga belum tersedia.'
+                        'emptyMessage' => 'Data kepala keluarga belum tersedia.',
+                        'showOverallSum' => true
                     ])
                 @elseif ($category === 'religion')
                     @include('public.partials.matrix-table', [

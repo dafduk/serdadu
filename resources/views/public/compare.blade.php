@@ -368,7 +368,7 @@
                 </div>
 
                 <div class="mt-4 flex justify-end">
-                    <button type="submit" class="px-6 py-2 bg-[#007151] text-white rounded-lg hover:bg-[#005a3f] transition-colors font-medium">
+                    <button type="submit" class="px-6 py-2 bg-[#009B4D] text-white rounded-lg hover:bg-[#007a3d] transition-colors font-medium">
                         Bandingkan
                     </button>
                 </div>
@@ -379,7 +379,7 @@
     {{-- Tampilkan pesan jika belum ada data yang dipilih --}}
     @if (!$primaryPeriod || !$comparePeriod)
         <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 dk-card mt-4">
-            <strong class="text-yellow-800">Pilih Filter.</strong> <span class="text-yellow-700">Silakan pilih periode dan wilayah untuk Data Utama dan Data Pembanding, lalu klik tombol "Bandingkan" di atas.</span>
+            <strong class="text-[#009B4D]">Pilih Filter.</strong> <span class="text-[#009B4D]">Silakan pilih periode dan wilayah untuk Data Utama dan Data Pembanding, lalu klik tombol "Bandingkan" di atas.</span>
         </div>
     @else
         {{-- Tab Navigation - Only Visible when data is selected --}}

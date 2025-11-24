@@ -26,7 +26,7 @@
     <x-slot name="header">
         <div class="flex flex-wrap items-start justify-between gap-6">
             <div class="space-y-3">
-                <p class="text-xs font-semibold uppercase tracking-[0.35em] text-[#007151]">Administrasi Dataset</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.35em] text-[#009B4D]">Administrasi Dataset</p>
                 <div>
                     <h2 class="text-2xl sm:text-3xl font-semibold text-slate-900">
                         Impor Data Dukcapil (Satu File .xlsx)
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-3 rounded-2xl admin-pill px-4 py-3">
-                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#007151] border border-gray-200">
+                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-[#009B4D] border border-gray-200">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m4-4H8"/>
                     </svg>
@@ -98,7 +98,7 @@
                                 pattern="\d{4}"
                                 required
                                 value="{{ old('year') }}"
-                                class="year-input block w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 focus:border-[#007151] focus:ring-[#007151]"
+                                class="year-input block w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 focus:border-[#009B4D] focus:ring-[#009B4D]"
                             >
                             <p class="text-xs text-slate-500">Masukkan tahun rilis dataset (4 digit).</p>
                             @error('year') <div class="text-red-600 text-sm">{{ $message }}</div> @enderror
@@ -110,7 +110,7 @@
                             <select
                                 name="semester"
                                 required
-                                class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 focus:border-[#007151] focus:ring-[#007151]"
+                                class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-slate-900 focus:border-[#009B4D] focus:ring-[#009B4D]"
                             >
                                 <option value="">-- pilih --</option>
                                 <option value="1" {{ old('semester')=='1'?'selected':'' }}>1 (Januari–Juni)</option>
@@ -141,7 +141,7 @@
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <p class="text-xs text-slate-500">Setelah proses selesai, statistik publik akan diperbarui otomatis.</p>
                         <button type="submit"
-                                class="inline-flex items-center gap-2 rounded-full bg-[#007151] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#005e45] transition">
+                                class="inline-flex items-center gap-2 rounded-full bg-[#009B4D] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#007a3d] transition">
                             <img src="{{ asset('img/upload.png') }}" alt="Upload" class="h-4 w-4 object-contain">
                             Unggah &amp; Proses
                         </button>
