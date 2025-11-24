@@ -72,7 +72,7 @@ Karena pendaftaran publik dinonaktifkan demi keamanan, gunakan perintah CLI beri
 ```bash
 php artisan user:create-admin
 ```
-Ikuti instruksi di layar untuk memasukkan Nama, Email, dan Password admin.
+Ikuti instruksi di layar untuk memasukkan Nama, Email, dan Password.
 
 ## 🔒 Keamanan
 Proyek ini telah melalui audit keamanan dan menerapkan praktik terbaik:
