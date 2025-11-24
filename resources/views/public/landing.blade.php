@@ -465,24 +465,24 @@
             // Tile layers
             const carto = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                 maxZoom: 19,
-                attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+                attribution: '&copy; Serdadu | &copy; OpenStreetMap contributors &copy; CARTO',
             });
             const cartoDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                 maxZoom: 19,
-                attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+                attribution: '&copy; Serdadu | &copy; OpenStreetMap contributors &copy; CARTO',
             });
             const cartoVoyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
                 maxZoom: 19,
-                attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+                attribution: '&copy; Serdadu | &copy; OpenStreetMap contributors &copy; CARTO',
             });
             const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
-                attribution: '&copy; OpenStreetMap contributors',
+                attribution: '&copy; Serdadu | &copy; OpenStreetMap contributors',
             });
             const googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
                 maxZoom: 20,
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
-                attribution: 'Imagery &copy; Google'
+                attribution: '&copy; Serdadu | Imagery &copy; Google'
             });
 
             // Initialize map
