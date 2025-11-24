@@ -6,6 +6,15 @@
           crossorigin=""/>
     <style>
         #landing-map { height: 100%; min-height: 600px; width: 100%; z-index: 1; }
+        
+        /* Mobile responsive map */
+        @media (max-width: 768px) {
+            #landing-map { min-height: 400px; }
+        }
+        
+        @media (max-width: 480px) {
+            #landing-map { min-height: 350px; }
+        }
         .leaflet-popup-content-wrapper { border-radius: 8px; }
         .dark .leaflet-popup-content-wrapper {
             background: var(--color-surface);
@@ -31,6 +40,14 @@
             position: relative;
             overflow: hidden;
         }
+        
+        /* Mobile responsive padding */
+        @media (max-width: 640px) {
+            .metric-card {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+        }
         .metric-card::before {
             content: '';
             position: absolute;
@@ -41,12 +58,51 @@
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
         }
         .metric-card {
-            transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
         .metric-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(0,0,0,0.18);
-            filter: brightness(1.05) saturate(1.05);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            filter: brightness(1.1) saturate(1.1);
+        }
+        .metric-card:active {
+            transform: translateY(-4px) scale(1.01);
+        }
+        
+        /* Hover effects untuk panel */
+        .panel-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .panel-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+        
+        /* Hover effects untuk wilayah info */
+        .wilayah-info-item {
+            transition: all 0.2s ease;
+        }
+        .wilayah-info-item:hover {
+            background-color: rgba(0, 155, 77, 0.05);
+            transform: translateX(4px);
+        }
+        
+        /* Disable hover effects on mobile */
+        @media (max-width: 768px) {
+            .metric-card:hover {
+                transform: none;
+                box-shadow: none;
+                filter: none;
+            }
+            .panel-hover:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            .wilayah-info-item:hover {
+                background-color: transparent;
+                transform: none;
+            }
         }
         .metric-card-primary { --gradient-start: #009B4D; --gradient-end: #007a3d; }
         .metric-card-male { --gradient-start: #4f7df3; --gradient-end: #2b5fcf; }
@@ -67,11 +123,118 @@
             border-radius: 2px;
             transition: width 0.6s ease;
         }
+        
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Animation Classes */
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-in-left {
+            animation: slideInLeft 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-slide-in-right {
+            animation: slideInRight 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-scale-in {
+            animation: scaleIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        /* Stagger Delays */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-800 { animation-delay: 0.8s; }
+        
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+            /* Reduce animation delays on mobile */
+            .delay-100, .delay-200, .delay-300, .delay-400, .delay-500, .delay-600, .delay-700, .delay-800 {
+                animation-delay: 0s;
+            }
+            
+            /* Faster animations on mobile */
+            .animate-fade-in-up,
+            .animate-fade-in,
+            .animate-slide-in-left,
+            .animate-slide-in-right,
+            .animate-scale-in {
+                animation-duration: 0.4s;
+            }
+        }
     </style>
 @endpush
 
 @section('content')
-    <div class="space-y-6">
+    <div class="space-y-4 sm:space-y-6">
         @if (!$period)
             <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg shadow-sm">
                 <div class="flex items-start gap-3">
@@ -99,9 +262,9 @@
                 <!-- Statistics Panel -->
                 <div class="lg:col-span-5 xl:col-span-4 flex flex-col">
                     <!-- Overview Card -->
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex-1">
-                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3 mb-6">
-                            <h2 class="text-lg font-semibold text-gray-900">Data Agregat Kependudukan Terbaru</h2>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 flex-1 animate-slide-in-left panel-hover">
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3 mb-4 sm:mb-6">
+                            <h2 class="text-base sm:text-lg font-semibold text-gray-900">Data Agregat Kependudukan Terbaru</h2>
                             @if($period)
                                 <div class="flex-shrink-0 px-2 py-0.5 sm:px-2.5 sm:py-1 lg:px-3 lg:py-1 bg-[#009B4D] text-white text-[10px] sm:text-[11px] lg:text-xs font-medium rounded-full whitespace-nowrap self-start sm:self-auto">
                                     Semester {{ $period['semester'] }} Tahun {{ $period['year'] }}
@@ -110,20 +273,20 @@
                         </div>
                         
                         <!-- Wilayah Info -->
-                        <div class="mb-6">
+                        <div class="mb-4 sm:mb-6">
                             <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Wilayah</h3>
-                            <div class="bg-gray-50 rounded-lg p-4 space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm font-medium text-gray-700">Nama Wilayah</span>
-                                    <span class="text-sm text-gray-900 font-semibold">Madiun</span>
+                            <div class="bg-gray-50 rounded-lg p-3 sm:p-4 space-y-2">
+                                <div class="flex justify-between items-center wilayah-info-item rounded-md px-2 py-1 -mx-2">
+                                    <span class="text-xs sm:text-sm font-medium text-gray-700">Nama Wilayah</span>
+                                    <span class="text-xs sm:text-sm text-gray-900 font-semibold">Madiun</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm font-medium text-gray-700">Jumlah Kecamatan</span>
-                                    <span class="text-sm text-gray-900 font-semibold">{{ number_format($districtCount) }}</span>
+                                <div class="flex justify-between items-center wilayah-info-item rounded-md px-2 py-1 -mx-2">
+                                    <span class="text-xs sm:text-sm font-medium text-gray-700">Jumlah Kecamatan</span>
+                                    <span class="text-xs sm:text-sm text-gray-900 font-semibold">{{ number_format($districtCount) }}</span>
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-sm font-medium text-gray-700">Jumlah Desa/Kelurahan</span>
-                                    <span class="text-sm text-gray-900 font-semibold">{{ number_format($villageCount) }}</span>
+                                <div class="flex justify-between items-center wilayah-info-item rounded-md px-2 py-1 -mx-2">
+                                    <span class="text-xs sm:text-sm font-medium text-gray-700">Jumlah Desa/Kelurahan</span>
+                                    <span class="text-xs sm:text-sm text-gray-900 font-semibold">{{ number_format($villageCount) }}</span>
                                 </div>
                             </div>
                         </div>
@@ -133,15 +296,15 @@
                             <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Jumlah Penduduk</h3>
                             <div class="space-y-3 sm:space-y-4">
                                 <!-- Total Penduduk -->
-                                <div>
+                                <div class="animate-fade-in-up delay-200">
                                     <div class="metric-card metric-card-primary">
                                         <div class="flex items-center justify-between mb-2">
                                             <div class="flex items-center gap-2">
-                                                <img src="{{ asset('img/penduduk.png') }}" alt="Total Penduduk" class="w-8 h-8">
-                                                <span class="text-sm font-medium text-white/90">Total Penduduk</span>
+                                                <img src="{{ asset('img/penduduk.png') }}" alt="Total Penduduk" class="w-6 h-6 sm:w-8 sm:h-8">
+                                                <span class="text-xs sm:text-sm font-medium text-white/90">Total Penduduk</span>
                                             </div>
                                         </div>
-                                        <div class="text-2xl font-bold mb-1">{{ number_format($totalPop) }}</div>
+                                        <div class="text-xl sm:text-2xl font-bold mb-1">{{ number_format($totalPop) }}</div>
                                         <div class="progress-bar">
                                             <div class="progress-fill" style="width: 100%"></div>
                                         </div>
@@ -151,7 +314,7 @@
                                 <!-- Laki-laki dan Perempuan - Side by Side -->
                                 <div class="grid grid-cols-2 gap-3 sm:gap-4">
                                     <!-- Laki-laki -->
-                                    <div>
+                                    <div class="animate-fade-in-up delay-300">
                                         <div class="metric-card metric-card-male h-full">
                                             <div class="flex items-center justify-between mb-2">
                                                 <div class="flex items-center gap-2">
@@ -168,7 +331,7 @@
                                     </div>
 
                                     <!-- Perempuan -->
-                                    <div>
+                                    <div class="animate-fade-in-up delay-400">
                                         <div class="metric-card metric-card-female h-full">
                                             <div class="flex items-center justify-between mb-2">
                                                 <div class="flex items-center gap-2">
@@ -186,7 +349,7 @@
                                 </div>
 
                                 <!-- Wajib KTP -->
-                                <div>
+                                <div class="animate-fade-in-up delay-500">
                                     <div class="metric-card metric-card-primary">
                                         <div class="flex items-center justify-between mb-2">
                                             <div class="flex items-center gap-2">
@@ -208,10 +371,10 @@
 
                 <!-- Map Panel -->
                 <div class="lg:col-span-7 xl:col-span-8 flex flex-col">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex-1 flex flex-col">
-                        <div class="p-6 border-b border-gray-200">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex-1 flex flex-col animate-slide-in-right delay-100 panel-hover">
+                        <div class="p-4 sm:p-6 border-b border-gray-200">
                             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                                <h2 class="text-lg font-semibold text-gray-900">Peta Persebaran Penduduk Kabupaten Madiun</h2>
+                                <h2 class="text-base sm:text-lg font-semibold text-gray-900">Peta Persebaran Penduduk Kabupaten Madiun</h2>
                                 @if (!empty($districtOptions) && $districtOptions->count())
                                     <div class="lg:w-auto w-full">
                                         <label for="landing-district-filter" class="block text-xs font-medium text-gray-700 mb-1.5">Kecamatan</label>
@@ -245,11 +408,19 @@
 
             <!-- Laju Pertumbuhan Penduduk Section -->
             @if (!empty($populationGrowth['labels']) && count($populationGrowth['labels']) > 0)
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-                    <h2 class="text-lg font-semibold text-gray-900 mb-6">Laju Pertumbuhan Penduduk</h2>
-                    <div class="chart-container" style="height: 400px; position: relative;">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 animate-fade-in-up delay-600 panel-hover">
+                    <h2 class="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">Laju Pertumbuhan Penduduk</h2>
+                    <div class="chart-container" style="height: 300px; position: relative;">
                         <canvas id="population-growth-chart"></canvas>
                     </div>
+                    
+                    <style>
+                        @media (min-width: 640px) {
+                            .chart-container {
+                                height: 400px !important;
+                            }
+                        }
+                    </style>
                 </div>
             @endif
         @endif
@@ -761,22 +932,22 @@
                 const labelDiv = document.createElement('div');
                 labelDiv.textContent = villageName;
                 labelDiv.style.cssText = `
-                    background: rgba(0, 73, 124, 0.92);
-                    color: #f4fbff;
-                    padding: 2px 5px;
+                    background: rgba(255, 255, 255, 0.9);
+                    color: #004934;
+                    padding: 2px 7px;
                     border-radius: 3px;
-                    font-size: 8px;
+                    font-size: 9px;
                     font-weight: 600;
                     white-space: nowrap;
                     pointer-events: none;
-                    border: 0.7px solid rgba(0, 0, 0, 0.25);
-                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+                    border: 0.7px solid rgba(0, 113, 81, 0.35);
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
                     text-align: center;
                     user-select: none;
                     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
                     letter-spacing: 0.02em;
                     text-transform: uppercase;
-                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
                 `;
 
                 const labelIcon = L.divIcon({

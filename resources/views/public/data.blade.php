@@ -20,6 +20,42 @@
             .dk-table-heading {
                 margin-bottom: 1.5rem;
             }
+            
+            /* Compact filter section */
+            .dk-card .p-4 {
+                padding: 0.75rem !important;
+            }
+            
+            /* Smaller select inputs */
+            select {
+                font-size: 0.875rem;
+                padding: 0.5rem 0.75rem;
+            }
+            
+            /* Compact labels */
+            label {
+                font-size: 0.625rem;
+                margin-bottom: 0.25rem;
+            }
+        }
+        
+        /* Tab navigation scrollable on mobile */
+        @media (max-width: 768px) {
+            .dk-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            .dk-tabs::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .dk-tab-button-text {
+                font-size: 0.8125rem;
+                white-space: nowrap;
+            }
         }
     </style>
 @endpush
@@ -38,6 +74,7 @@
             'wajib-ktp' => 'Wajib KTP',
         ];
     @endphp
+
 
     {{-- Kartu filter untuk memilih wilayah dan periode data agregat yang ditampilkan --}}
     <div class="dk-card mb-4">

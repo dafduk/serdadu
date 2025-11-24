@@ -96,6 +96,85 @@
                 gap: 1.5rem;
             }
         }
+        
+        /* Mobile responsive styling */
+        @media (max-width: 640px) {
+            /* Compact filter section */
+            .dk-card .p-4 {
+                padding: 0.75rem !important;
+            }
+            
+            /* Smaller select inputs */
+            select {
+                font-size: 0.875rem;
+                padding: 0.5rem 0.75rem;
+            }
+            
+            /* Compact labels */
+            label {
+                font-size: 0.625rem;
+                margin-bottom: 0.25rem;
+            }
+            
+            /* Smaller badges */
+            .compare-badge {
+                font-size: 0.625rem;
+                padding: 0.25rem 0.5rem;
+            }
+            
+            /* Compact chart wrapper */
+            .chart-wrapper {
+                padding: 0.75rem !important;
+                border-radius: 1rem !important;
+            }
+            
+            /* Compact tab content */
+            .dk-tab-content {
+                padding: 0.75rem !important;
+            }
+            
+            /* Smaller chart legend */
+            .chart-legend {
+                font-size: 0.75rem;
+                gap: 0.5rem;
+                margin-top: 0.75rem;
+                padding-top: 0.75rem;
+            }
+            
+            .chart-legend-color {
+                width: 12px;
+                height: 12px;
+            }
+            
+            /* Smaller chart container */
+            .chart-container {
+                min-height: 300px !important;
+            }
+            
+            /* Compact grid gap */
+            .compare-chart-grid {
+                gap: 0.75rem;
+            }
+        }
+        
+        /* Tab navigation scrollable on mobile */
+        @media (max-width: 768px) {
+            .dk-tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            .dk-tabs::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .dk-tab-button-text {
+                font-size: 0.8125rem;
+                white-space: nowrap;
+            }
+        }
     </style>
 @endpush
 
