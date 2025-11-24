@@ -28,16 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
   Route::get('/admin/import', [ImportController::class, 'form'])->name('import.form');
   Route::post('/admin/import', [ImportController::class, 'store'])->name('import.store');
   Route::post('/admin/import/reset', [ImportController::class, 'reset'])->name('import.reset');
 });
 
-Route::get('/test-upload', function() {
-    $path = storage_path('app/imports/test.txt');
-    file_put_contents($path, "hello world");
-    return file_exists($path) ? 'OK tersimpan: '.$path : 'GAGAL';
-});
+
 
 require __DIR__.'/auth.php';

@@ -1,57 +1,83 @@
-# Serdadu Project
-(Sistem Rekap Data Terpadu)
+# SERDADU (Sistem Rekap Data Terpadu)
 
-## About
-SERDADU (Sistem Rekap Data Terpadu) is a web application built with Laravel framework. This project serves as [describe your project's main purpose and features].
+SERDADU adalah aplikasi web berbasis Laravel yang dirancang untuk menyajikan data kependudukan dan wilayah secara terpadu, interaktif, dan aman. Aplikasi ini menyediakan visualisasi data melalui peta interaktif (Leaflet), grafik statistik, dan tabel ringkasan untuk memudahkan analisis demografi Kabupaten Madiun.
 
-## Requirements
-- PHP >= 8.0
+## 🚀 Teknologi Utama
+- **Backend:** Laravel 11, PHP 8.2+
+- **Frontend:** Blade Templates, Tailwind CSS v4, Alpine.js v3
+- **Database:** MySQL / MariaDB
+- **Peta & Visualisasi:** Leaflet.js, Chart.js
+- **Keamanan:** Role-Based Access Control (RBAC), Custom Middleware
+
+## ✨ Fitur Utama
+
+### 📊 Dashboard Publik
+- **Statistik Kependudukan:** Kartu ringkasan untuk total populasi, gender, dan wajib KTP.
+- **Peta Interaktif:** Visualisasi persebaran penduduk dengan filter wilayah (Kecamatan/Desa) dan berbagai layer peta (Default, Satellite, dll).
+- **Grafik & Tabel:** Penyajian data yang dinamis dan mudah dipahami.
+- **Ekspor Data:** Fitur unduh data dalam format PDF/Excel (menggunakan `dompdf` dan `maatwebsite/excel`).
+
+### 🛡️ Panel Admin & Keamanan
+- **Manajemen Data:** Impor data kependudukan (Excel) yang aman dan tervalidasi.
+- **Otentikasi Aman:** Pendaftaran publik dinonaktifkan untuk mencegah akses tidak sah.
+- **RBAC (Role-Based Access Control):** Hanya pengguna dengan status `is_admin` yang dapat mengakses fitur sensitif.
+- **Middleware Proteksi:** Seluruh rute admin dilindungi oleh middleware khusus `admin`.
+- **Mitigasi DoS:** Perlindungan terhadap serangan Denial of Service pada fitur unggahan file.
+
+## 🛠️ Instalasi
+
+### Prasyarat
+- PHP >= 8.2
 - Composer
-- MySQL/MariaDB
 - Node.js & NPM
+- MySQL
 
-## Installation
-1. Clone the repository
+### Langkah-langkah
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/username/serdadu.git
+   cd serdadu
+   ```
+
+2. **Install Dependensi**
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Konfigurasi Environment**
+   Salin file contoh `.env` dan sesuaikan konfigurasi database Anda.
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+   > **Penting:** Pastikan `APP_DEBUG=false` dan `SESSION_ENCRYPT=true` di production.
+
+4. **Setup Database**
+   Jalankan migrasi untuk membuat tabel database.
+   ```bash
+   php artisan migrate
+   ```
+
+5. **Build Assets**
+   ```bash
+   npm run build
+   ```
+
+## 👥 Manajemen User Admin
+Karena pendaftaran publik dinonaktifkan demi keamanan, gunakan perintah CLI berikut untuk membuat akun administrator:
+
 ```bash
-git clone https://github.com/yourusername/serdadu.git
+php artisan user:create-admin
 ```
+Ikuti instruksi di layar untuk memasukkan Nama, Email, dan Password.
 
-2. Install dependencies
-```bash
-composer install
-npm install
-```
+## 🔒 Keamanan
+Proyek ini telah melalui audit keamanan dan menerapkan praktik terbaik:
+- **Input Validation:** Validasi ketat pada setiap input pengguna.
+- **Secure File Upload:** Pengecekan MIME type dan pembatasan ukuran file.
+- **XSS & CSRF Protection:** Perlindungan bawaan Laravel diaktifkan sepenuhnya.
+- **No Debug Routes:** Rute debug berbahaya telah dihapus dari kode produksi.
 
-3. Configure environment
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-4. Set up database
-- Create database in MySQL
-- Configure database credentials in .env file
-- Run migrations:
-```bash
-php artisan migrate
-```
-
-## Running the Application
-```bash
-php artisan serve
-npm run dev
-```
-
-## Features
-- Ringkasan wilayah memuat nama kabupaten, jumlah kecamatan, serta jumlah desa/kelurahan dalam format tabel ringkas untuk memberi konteks cakupan data 
-- Kartu statistik penduduk merinci total populasi, pembagian laki-laki dan perempuan, serta jumlah wajib KTP (termasuk rinciannya per gender) agar pengguna cepat memahami komposisi demografis
-- Peta interaktif Leaflet menampilkan persebaran penduduk Kabupaten Madiun lengkap dengan opsi basemap (Default, Light, Dark, Satellite) dan kontrol layer di sudut kanan atas
-- Dropdown filter kecamatan memungkinkan pengguna memusatkan peta dan statistik ke area pilihan, sekaligus memicu pembaruan legend serta label desa/kelurahan secara dinamis
-- Setiap batas wilayah (kabupaten, kecamatan, desa/kelurahan) diberi styling dan label otomatis di peta, termasuk badge bernomor pada legend untuk memudahkan identifikas
-- Hover dan popup pada fitur kecamatan/desa menonjolkan area yang dipilih sekaligus menampilkan statistik Laki-laki/Perempuan/Total; interaksi ini memanfaatkan fungsi highlight dan reset agar pengalaman eksplorasi terasa responsif
-
-## Security
--
-
-## License
--
+## 📄 Lisensi
+[MIT License](LICENSE)

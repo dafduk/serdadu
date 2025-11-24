@@ -25,9 +25,9 @@ class ImportController extends Controller
         ]);
 
         // Impor bisa memakan waktu lama, jadi longgarkan batas waktu eksekusi PHP.
-        if (function_exists('set_time_limit')) {
-            @set_time_limit(0);
-        }
+        // if (function_exists('set_time_limit')) {
+        //     @set_time_limit(0);
+        // }
         if (function_exists('ini_set')) {
             @ini_set('max_execution_time', '0');
         }
@@ -148,8 +148,8 @@ class ImportController extends Controller
     private function authorizeAction(Request $request): void
     {
         // Tempatkan hook otorisasi lebih lanjut jika diperlukan
-        if (!$request->user()) {
-            abort(403);
+        if (!$request->user() || !$request->user()->is_admin) {
+            abort(403, 'Tindakan tidak diizinkan.');
         }
     }
 }
