@@ -200,6 +200,7 @@
             'gender' => 'Jenis Kelamin',
             'age' => 'Kelompok Umur',
             'single-age' => 'Umur Tunggal',
+            'pyramid' => 'Piramida Penduduk',
             'education' => 'Pendidikan',
             'occupation' => 'Pekerjaan',
             'marital' => 'Status Perkawinan',

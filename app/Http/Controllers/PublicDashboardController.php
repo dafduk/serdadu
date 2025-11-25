@@ -1997,6 +1997,53 @@ class PublicDashboardController extends Controller
         ];
     }
 
+    // ---------------------------------------------------------------------
+    // Pyramid Chart Helper
+    // ---------------------------------------------------------------------
+    /**
+     * Build data for the pyramid chart (age vs gender).
+     * Male values are negated to appear on the left side of the chart.
+     */
+    private function buildPyramidChart(string $title, array $rows): array
+    {
+        if (empty($rows)) {
+            return [
+                'title' => $title,
+                'labels' => [],
+                'datasets' => [],
+            ];
+        }
+
+        // Extract labels and data
+        $labels = array_map(fn($row) => $row['label'] ?? '-', $rows);
+        $male = array_map(fn($row) => (int) ($row['male'] ?? 0), $rows);
+        $female = array_map(fn($row) => (int) ($row['female'] ?? 0), $rows);
+
+        // For pyramid chart, male values should be negative (left side)
+        $maleNegative = array_map(fn($val) => -1 * $val, $male);
+
+        return [
+            'title' => $title,
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Laki-laki',
+                    'data' => $maleNegative,
+                    'backgroundColor' => '#377dff',
+                    'borderColor' => '#377dff',
+                    'borderWidth' => 1,
+                ],
+                [
+                    'label' => 'Perempuan',
+                    'data' => $female,
+                    'backgroundColor' => '#ff5c8d',
+                    'borderColor' => '#ff5c8d',
+                    'borderWidth' => 1,
+                ],
+            ],
+        ];
+    }
+
     private function maritalStatusSummary(?array $period, array $filters = []): array
     {
         return $this->sumPairColumns('pop_marital_status', $period, $filters, [
