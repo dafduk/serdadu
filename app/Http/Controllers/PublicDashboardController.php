@@ -40,6 +40,11 @@ class PublicDashboardController extends Controller
 
     public function landing()
     {
+        return view('public.landing', $this->getLandingData());
+    }
+
+    protected function getLandingData(): array
+    {
         $period = $this->latestPeriod();
         $districts = District::orderBy('name')->get(['id', 'name', 'code']);
 
@@ -53,7 +58,7 @@ class PublicDashboardController extends Controller
                 ];
             })->values();
 
-            return view('public.landing', [
+            return [
                 'title' => 'Beranda',
                 'period' => null,
                 'mapStats' => $this->emptyMapStats(),
@@ -61,7 +66,7 @@ class PublicDashboardController extends Controller
                 'districtsForMap' => $districtsForMap,
                 'districtCount' => $districts->count(),
                 'populationGrowth' => $this->populationGrowthRate(),
-            ]);
+            ];
         }
 
         $gender = $this->genderSummary($period);
@@ -86,7 +91,7 @@ class PublicDashboardController extends Controller
             ];
         })->values();
 
-        return view('public.landing', [
+        return [
             'title' => 'Beranda',
             'period' => $period,
             'totals' => $totals,
@@ -102,10 +107,15 @@ class PublicDashboardController extends Controller
             'districts' => $districts,
             'districtsForMap' => $districtsForMap,
             'populationGrowth' => $populationGrowth,
-        ]);
+        ];
     }
 
     public function data(Request $request)
+    {
+        return view('public.data', $this->getDataViewData($request));
+    }
+
+    protected function getDataViewData(Request $request): array
     {
         [
             'periods' => $periods,
@@ -137,7 +147,7 @@ class PublicDashboardController extends Controller
         $headHouseholdMatrix = $this->headHouseholdMatrix($period, $filters);
         $religionMatrix = $this->religionMatrix($period, $filters);
 
-        return view('public.data', [
+        return [
             'title' => 'Data Agregat',
             'period' => $period,
             'periods' => $periods,
@@ -164,10 +174,16 @@ class PublicDashboardController extends Controller
             'maritalMatrix' => $maritalMatrix,
             'headHouseholdMatrix' => $headHouseholdMatrix,
             'religionMatrix' => $religionMatrix,
-        ]);
+        ];
     }
 
     public function fullscreen(Request $request)
+    {
+        $data = $this->getFullscreenViewData($request);
+        return view('public.data-fullscreen', $data);
+    }
+
+    protected function getFullscreenViewData(Request $request): array
     {
         [
             'periods' => $periods,
@@ -201,7 +217,7 @@ class PublicDashboardController extends Controller
         $headHouseholdMatrix = $this->headHouseholdMatrix($period, $filters);
         $religionMatrix = $this->religionMatrix($period, $filters);
 
-        return view('public.data-fullscreen', [
+        return [
             'title' => 'Data Agregat - Fullscreen',
             'period' => $period,
             'periods' => $periods,
@@ -229,10 +245,15 @@ class PublicDashboardController extends Controller
             'headHouseholdMatrix' => $headHouseholdMatrix,
             'religionMatrix' => $religionMatrix,
             'category' => $category,
-        ]);
+        ];
     }
 
     public function charts(Request $request)
+    {
+        return view('public.charts', $this->getChartsViewData($request));
+    }
+
+    protected function getChartsViewData(Request $request): array
     {
         [
             'periods' => $periods,
@@ -295,7 +316,7 @@ class PublicDashboardController extends Controller
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $wajibKtp),
         ];
 
-        return view('public.charts', [
+        return [
             'title' => 'Grafik Data',
             'period' => $period,
             'periods' => $periods,
@@ -311,10 +332,15 @@ class PublicDashboardController extends Controller
             'chartTitles' => $chartTitles,
             'chartsNeedingTags' => $chartsNeedingTags,
             'chartsAngledTags' => $chartsAngledTags,
-        ]);
+        ];
     }
 
     public function compare(Request $request)
+    {
+        return view('public.compare', $this->getCompareViewData($request));
+    }
+
+    protected function getCompareViewData(Request $request): array
     {
         // Get all periods
         $periods = $this->availablePeriods();
@@ -546,7 +572,7 @@ class PublicDashboardController extends Controller
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $compareWajibKtp),
         ];
 
-        return view('public.compare', [
+        return [
             'title' => 'Perbandingan Data',
             'primaryPeriod' => $primaryPeriod,
             'comparePeriod' => $comparePeriod,
@@ -572,10 +598,16 @@ class PublicDashboardController extends Controller
             'chartsNeedingTags' => $chartsNeedingTags,
             'chartsAngledTags' => $chartsAngledTags,
             'horizontalChartKeys' => $horizontalChartKeys,
-        ]);
+        ];
     }
 
     public function chartsFullscreen(Request $request)
+    {
+        $data = $this->getChartsFullscreenViewData($request);
+        return view('public.charts-fullscreen', $data);
+    }
+
+    protected function getChartsFullscreenViewData(Request $request): array
     {
         [
             'periods' => $periods,
@@ -640,7 +672,7 @@ class PublicDashboardController extends Controller
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $wajibKtp),
         ];
 
-        return view('public.charts-fullscreen', [
+        return [
             'title' => 'Grafik Data - Fullscreen',
             'period' => $period,
             'periods' => $periods,
@@ -657,10 +689,16 @@ class PublicDashboardController extends Controller
             'chartsNeedingTags' => $chartsNeedingTags,
             'chartsAngledTags' => $chartsAngledTags,
             'category' => $category,
-        ]);
+        ];
     }
 
     public function compareFullscreen(Request $request)
+    {
+        $data = $this->getCompareFullscreenViewData($request);
+        return view('public.compare-fullscreen', $data);
+    }
+
+    protected function getCompareFullscreenViewData(Request $request): array
     {
         // Get all periods
         $periods = $this->availablePeriods();
@@ -840,7 +878,7 @@ class PublicDashboardController extends Controller
             'wajib-ktp' => $this->buildWajibKtpChart($chartTitles['wajib-ktp'], $compareWajibKtp),
         ];
 
-        return view('public.compare-fullscreen', [
+        return [
             'title' => 'Perbandingan Data - Fullscreen',
             'primaryPeriod' => $primaryPeriod,
             'comparePeriod' => $comparePeriod,
@@ -867,10 +905,10 @@ class PublicDashboardController extends Controller
             'chartsAngledTags' => $chartsAngledTags,
             'horizontalChartKeys' => $horizontalChartKeys,
             'category' => $category,
-        ]);
+        ];
     }
 
-    private function availablePeriods(): array
+    protected function availablePeriods(): array
     {
         return DB::table('pop_age_group')
             ->select('year', 'semester')
@@ -887,7 +925,7 @@ class PublicDashboardController extends Controller
             ->toArray();
     }
 
-    private function prepareFilterContext(Request $request): array
+    protected function prepareFilterContext(Request $request): array
     {
         $periods = $this->availablePeriods();
         
@@ -980,7 +1018,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function resolvePeriod(?string $yearInput, ?string $semesterInput, array $periods): ?array
+    protected function resolvePeriod(?string $yearInput, ?string $semesterInput, array $periods): ?array
     {
         if (empty($periods)) {
             return null;
@@ -1016,13 +1054,13 @@ class PublicDashboardController extends Controller
         return $periods[0];
     }
 
-    private function latestPeriod(): ?array
+    protected function latestPeriod(): ?array
     {
         $periods = $this->availablePeriods();
         return $periods[0] ?? null;
     }
 
-    private function genderSummary(?array $period, array $filters = []): array
+    protected function genderSummary(?array $period, array $filters = []): array
     {
         if (!$period) {
             return ['male' => 0, 'female' => 0, 'total' => 0];
@@ -1049,7 +1087,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function wajibKtpSummary(?array $period, array $filters = []): array
+    protected function wajibKtpSummary(?array $period, array $filters = []): array
     {
         if (!$period) {
             return ['male' => 0, 'female' => 0, 'total' => 0];
@@ -1076,7 +1114,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function ageGroupSummary(?array $period, array $filters = []): array
+    protected function ageGroupSummary(?array $period, array $filters = []): array
     {
         if (!$period) {
             return [];
@@ -1114,7 +1152,7 @@ class PublicDashboardController extends Controller
         return $ordered;
     }
 
-    private function districtRanking(?array $period, int $limit = 5)
+    protected function districtRanking(?array $period, int $limit = 5)
     {
         if (!$period) {
             return collect();
@@ -1134,7 +1172,7 @@ class PublicDashboardController extends Controller
             ->get();
     }
 
-    private function mapPopulationSummary(?array $period): array
+    protected function mapPopulationSummary(?array $period): array
     {
         if (!$period) {
             return $this->emptyMapStats();
@@ -1237,7 +1275,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function codeAliases($code): array
+    protected function codeAliases($code): array
     {
         if ($code === null) {
             return [];
@@ -1262,7 +1300,7 @@ class PublicDashboardController extends Controller
         return array_values(array_unique(array_filter($aliases)));
     }
 
-    private function normalizeNameKey(?string $name): ?string
+    protected function normalizeNameKey(?string $name): ?string
     {
         if ($name === null) {
             return null;
@@ -1278,7 +1316,7 @@ class PublicDashboardController extends Controller
         return $slug === '' ? null : $slug;
     }
 
-    private function emptyMapStats(): array
+    protected function emptyMapStats(): array
     {
         return [
             'districts' => [
@@ -1292,7 +1330,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function areaPopulationTable(?array $period, array $filters): array
+    protected function areaPopulationTable(?array $period, array $filters): array
     {
         $context = $this->resolveAreaContext($filters);
         $titles = [
@@ -1387,13 +1425,13 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function buildSubtitle(array $parts): ?string
+    protected function buildSubtitle(array $parts): ?string
     {
         $parts = array_values(array_filter(array_map('trim', $parts)));
         return empty($parts) ? null : implode(' • ', $parts);
     }
 
-    private function summarizeRows(array $rows): array
+    protected function summarizeRows(array $rows): array
     {
         $summary = ['male' => 0, 'female' => 0, 'total' => 0];
 
@@ -1406,7 +1444,7 @@ class PublicDashboardController extends Controller
         return $summary;
     }
 
-    private function educationMatrix(?array $period, array $filters): array
+    protected function educationMatrix(?array $period, array $filters): array
     {
         $labels = $this->educationLabels();
         if (!$period) {
@@ -1428,7 +1466,7 @@ class PublicDashboardController extends Controller
         return $this->formatMatrixResult($results, $labels, $context);
     }
 
-    private function wajibKtpMatrix(?array $period, array $filters): array
+    protected function wajibKtpMatrix(?array $period, array $filters): array
     {
         $labels = ['wajib_ktp' => 'Wajib KTP'];
         if (!$period) {
@@ -1448,7 +1486,7 @@ class PublicDashboardController extends Controller
         return $this->formatMatrixResult($results, $labels, $context);
     }
 
-    private function maritalMatrix(?array $period, array $filters): array
+    protected function maritalMatrix(?array $period, array $filters): array
     {
         $labels = $this->maritalLabels();
         if (!$period) {
@@ -1470,7 +1508,7 @@ class PublicDashboardController extends Controller
         return $this->formatMatrixResult($results, $labels, $context);
     }
 
-    private function maritalLabels(): array
+    protected function maritalLabels(): array
     {
         return [
             'belum_kawin' => 'Belum Kawin',
@@ -1480,7 +1518,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function headHouseholdMatrix(?array $period, array $filters): array
+    protected function headHouseholdMatrix(?array $period, array $filters): array
     {
         $labels = $this->headHouseholdLabels();
         if (!$period) {
@@ -1502,7 +1540,7 @@ class PublicDashboardController extends Controller
         return $this->formatMatrixResult($results, $labels, $context);
     }
 
-    private function headHouseholdLabels(): array
+    protected function headHouseholdLabels(): array
     {
         return [
             'belum_kawin' => 'Belum Kawin',
@@ -1512,7 +1550,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function religionMatrix(?array $period, array $filters): array
+    protected function religionMatrix(?array $period, array $filters): array
     {
         $labels = $this->religionLabels();
         if (!$period) {
@@ -1534,7 +1572,7 @@ class PublicDashboardController extends Controller
         return $this->formatMatrixResult($results, $labels, $context);
     }
 
-    private function religionLabels(): array
+    protected function religionLabels(): array
     {
         return [
             'islam' => 'Islam',
@@ -1547,7 +1585,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function resolveAreaContext(array $filters): array
+    protected function resolveAreaContext(array $filters): array
     {
         $districtId = $filters['district_id'] ?? null;
         $villageId = $filters['village_id'] ?? null;
@@ -1575,7 +1613,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function prepareAreaQuery(string $table, array $period, array $filters): array
+    protected function prepareAreaQuery(string $table, array $period, array $filters): array
     {
         $context = $this->resolveAreaContext($filters);
         $districtId = $filters['district_id'] ?? null;
@@ -1623,14 +1661,14 @@ class PublicDashboardController extends Controller
         ]);
     }
 
-    private function applyGroupBy($query, array $groupBy): void
+    protected function applyGroupBy($query, array $groupBy): void
     {
         if (!empty($groupBy)) {
             $query->groupBy($groupBy);
         }
     }
 
-    private function buildEmptyMatrix(array $labels, array $context): array
+    protected function buildEmptyMatrix(array $labels, array $context): array
     {
         $columns = [];
         $totals = [];
@@ -1649,7 +1687,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function formatMatrixResult($results, array $labels, array $context): array
+    protected function formatMatrixResult($results, array $labels, array $context): array
     {
         $columns = [];
         $totals = [];
@@ -1697,7 +1735,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function educationSummary(?array $period, array $filters = []): array
+    protected function educationSummary(?array $period, array $filters = []): array
     {
         if (!$period) {
             return [];
@@ -1790,7 +1828,7 @@ class PublicDashboardController extends Controller
         return $ordered;
     }
 
-    private function singleAgeSummary(?array $period, array $filters = []): array
+    protected function singleAgeSummary(?array $period, array $filters = []): array
     {
         if (!$period) {
             return [];
@@ -1825,7 +1863,7 @@ class PublicDashboardController extends Controller
         })->toArray();
     }
 
-    private function occupationHighlights(?array $period, array $filters = []): array
+    protected function occupationHighlights(?array $period, array $filters = []): array
     {
         if (!$period) {
             return [];
@@ -1915,7 +1953,7 @@ class PublicDashboardController extends Controller
         return array_values($ordered);
     }
 
-    private function buildGenderChart(string $title, array $summary): array
+    protected function buildGenderChart(string $title, array $summary): array
     {
         $labels = ['Laki-laki', 'Perempuan'];
         $data = [
@@ -1932,7 +1970,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function buildWajibKtpChart(string $title, array $summary): array
+    protected function buildWajibKtpChart(string $title, array $summary): array
     {
         $labels = ['Laki-laki', 'Perempuan', 'Total'];
         $data = [
@@ -1956,7 +1994,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function buildSeriesChart(string $title, array $rows): array
+    protected function buildSeriesChart(string $title, array $rows): array
     {
         if (empty($rows)) {
             return [
@@ -1982,7 +2020,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function makeDataset(string $label, array $data, $color): array
+    protected function makeDataset(string $label, array $data, $color): array
     {
         $count = count($data);
         $background = is_array($color) ? $color : array_fill(0, $count, $color);
@@ -2004,7 +2042,7 @@ class PublicDashboardController extends Controller
      * Build data for the pyramid chart (age vs gender).
      * Male values are negated to appear on the left side of the chart.
      */
-    private function buildPyramidChart(string $title, array $rows): array
+    protected function buildPyramidChart(string $title, array $rows): array
     {
         if (empty($rows)) {
             return [
@@ -2044,7 +2082,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function maritalStatusSummary(?array $period, array $filters = []): array
+    protected function maritalStatusSummary(?array $period, array $filters = []): array
     {
         return $this->sumPairColumns('pop_marital_status', $period, $filters, [
             'belum_kawin',
@@ -2054,7 +2092,7 @@ class PublicDashboardController extends Controller
         ]);
     }
 
-    private function headOfHouseholdSummary(?array $period, array $filters = []): array
+    protected function headOfHouseholdSummary(?array $period, array $filters = []): array
     {
         return $this->sumPairColumns('pop_head_of_household', $period, $filters, [
             'belum_kawin',
@@ -2064,7 +2102,7 @@ class PublicDashboardController extends Controller
         ]);
     }
 
-    private function religionSummary(?array $period, array $filters = []): array
+    protected function religionSummary(?array $period, array $filters = []): array
     {
         return $this->sumPairColumns('pop_religion', $period, $filters, [
             'islam',
@@ -2077,7 +2115,7 @@ class PublicDashboardController extends Controller
         ]);
     }
 
-    private function sumPairColumns(string $table, ?array $period, array $filters, array $keys): array
+    protected function sumPairColumns(string $table, ?array $period, array $filters, array $keys): array
     {
         if (!$period) {
             return [];
@@ -2114,7 +2152,7 @@ class PublicDashboardController extends Controller
         return $results;
     }
 
-    private function formatPeriodLabel(?array $period): ?string
+    protected function formatPeriodLabel(?array $period): ?string
     {
         if (!$period) {
             return null;
@@ -2138,12 +2176,12 @@ class PublicDashboardController extends Controller
         return 'Semester ' . $semester;
     }
 
-    private function labelize(string $key): string
+    protected function labelize(string $key): string
     {
         return ucwords(str_replace('_', ' ', $key));
     }
 
-    private function educationLabels(): array
+    protected function educationLabels(): array
     {
         return [
             'belum_sekolah' => 'Belum / Tidak Sekolah',
@@ -2161,7 +2199,7 @@ class PublicDashboardController extends Controller
 
     private array $occupationLabelCache = [];
 
-    private function occupationLabelsCache(): array
+    protected function occupationLabelsCache(): array
     {
         if ($this->occupationLabelCache) {
             return $this->occupationLabelCache;
@@ -2182,7 +2220,7 @@ class PublicDashboardController extends Controller
         return $this->occupationLabelCache = $labels;
     }
 
-    private function applyAreaScope($query, array $filters): void
+    protected function applyAreaScope($query, array $filters): void
     {
         if (!empty($filters['district_id'])) {
             $query->where('district_id', $filters['district_id']);
@@ -2192,7 +2230,7 @@ class PublicDashboardController extends Controller
         }
     }
 
-    private function populationGrowthRate(int $limit = 10): array
+    protected function populationGrowthRate(int $limit = 10): array
     {
         // Ambil periode dari pop_gender (bukan pop_age_group)
         // pop_gender adalah tabel agregat utama untuk data populasi
@@ -2261,7 +2299,7 @@ class PublicDashboardController extends Controller
         ];
     }
 
-    private function sanitizeCategory(?string $category): string
+    protected function sanitizeCategory(?string $category): string
     {
         $allowedCategories = [
             'gender',
@@ -2703,7 +2741,7 @@ class PublicDashboardController extends Controller
         ])->deleteFileAfterSend(true);
     }
 
-    private function getColumnLetter($num)
+    protected function getColumnLetter($num)
     {
         // Convert 0-based index to Excel column letter using PhpSpreadsheet's Coordinate class
         // Input: 0 = A, 1 = B, 2 = C, etc.
@@ -2991,7 +3029,7 @@ class PublicDashboardController extends Controller
         ]);
     }
 
-    private function logDownload(Request $request, string $downloadType, string $fileType, array $meta = []): void
+    protected function logDownload(Request $request, string $downloadType, string $fileType, array $meta = []): void
     {
         try {
             $category = $meta['category'] ?? null;

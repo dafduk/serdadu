@@ -1,11 +1,16 @@
+@props([
+    'category' => 'gender',
+    'downloadRoute' => 'public.charts.download.pdf',
+])
+
 @php
-    $category = $category ?? 'gender';
     $queryParams = array_merge(request()->query(), ['category' => $category]);
-    $downloadUrl = route('public.charts.download.pdf', $queryParams);
+    $downloadUrl = route($downloadRoute, $queryParams);
     $defaultYear = request()->query('year', now()->year);
     $defaultSemester = request()->query('semester', 1);
     $downloadLabelBase = 'chart-' . $category . '-' . $defaultYear . '-s' . $defaultSemester;
 @endphp
+
 <div class="dk-table-heading__downloads flex flex-wrap gap-2 items-center justify-end text-right">
     <span 
         class="js-download-btn chart-action-btn cursor-pointer select-none"

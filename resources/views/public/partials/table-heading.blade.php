@@ -1,17 +1,22 @@
-@php
-    $title = $title ?? '';
-    $areaDescriptor = $areaDescriptor ?? '';
-    $periodLabel = $periodLabel ?? null;
-    $description = $description ?? null;
-    $secondaryAreaDescriptor = $secondaryAreaDescriptor ?? null;
-    $areaLabel = $areaLabel ?? 'Wilayah';
-    $secondaryAreaLabel = $secondaryAreaLabel ?? null;
-    $categoryOptions = $categoryOptions ?? [];
-    $activeCategory = $activeCategory ?? null;
-    $fullscreenRoute = $fullscreenRoute ?? 'public.data.fullscreen';
-    $customDownloads = $customDownloads ?? null;
-    $dropdownId = null;
+@props([
+    'title',
+    'periodLabel' => null,
+    'showDownloadButtons' => false,
+    'activeCategory' => null,
+    'fullscreenRoute' => 'public.data.fullscreen',
+    'downloadPdfRoute' => 'public.data.download.pdf',
+    'downloadExcelRoute' => 'public.data.download.excel',
+    'customDownloads' => null,
+    'description' => null,
+    'areaDescriptor' => null,
+    'secondaryAreaDescriptor' => null,
+    'areaLabel' => 'Wilayah',
+    'secondaryAreaLabel' => null,
+    'categoryOptions' => [],
+])
 
+@php
+    $dropdownId = null;
     if (!empty($categoryOptions)) {
         $dropdownId = 'aggregateTabsSelect';
         if (!empty($activeCategory)) {
@@ -25,7 +30,7 @@
         <div class="space-y-1">
             <h6 class="text-lg font-semibold text-gray-900 tracking-tight">{{ $title }}</h6>
             @if (!empty($description))
-                <p class="text-sm text-gray-500 leadingx`relaxed">{{ $description }}</p>
+                <p class="text-sm text-gray-500 leading-relaxed">{{ $description }}</p>
             @endif
         </div>
         <div class="mt-3 space-y-1 text-sm text-gray-600">
@@ -67,21 +72,16 @@
             </div>
         @endif
         <div class="flex flex-wrap sm:flex-nowrap items-center justify-end gap-3 w-full">
-            @php
-                $currentTabPane = $activeCategory ?? 'tab-gender';
-                $fullscreenUrl = route($fullscreenRoute, array_merge(request()->query(), ['category' => str_replace('tab-', '', $currentTabPane)]));
-            @endphp
             @if (!empty($customDownloads))
                 {!! $customDownloads !!}
             @elseif (isset($showDownloadButtons) && $showDownloadButtons)
                 @php
-                    $downloadCategory = $activeCategory ?? request()->query('category', 'gender');
-                    $downloadQuery = array_merge(request()->query(), ['category' => $downloadCategory]);
-                    $pdfUrl = route('public.data.download.pdf', $downloadQuery);
-                    $excelUrl = route('public.data.download.excel', $downloadQuery);
-                    $defaultYear = request()->query('year', $period['year'] ?? now()->year);
-                    $defaultSemester = request()->query('semester', $period['semester'] ?? 1);
-                    $downloadLabelBase = 'data-' . $downloadCategory . '-' . $defaultYear . '-s' . $defaultSemester;
+                    $queryParams = array_merge(request()->query(), ['category' => $activeCategory]);
+                    $pdfUrl = route($downloadPdfRoute, $queryParams);
+                    $excelUrl = route($downloadExcelRoute, $queryParams);
+                    $defaultYear = request()->query('year', now()->year);
+                    $defaultSemester = request()->query('semester', 1);
+                    $downloadLabelBase = 'data-' . $activeCategory . '-' . $defaultYear . '-s' . $defaultSemester;
                 @endphp
                 <div class="dk-table-heading__downloads flex flex-wrap sm:flex-nowrap items-center gap-2 justify-end">
                     <span 
@@ -108,11 +108,11 @@
                         role="button"
                         tabindex="0"
                         aria-label="Download Excel">
-                        <img src="{{ asset('img/sheet.png') }}" alt="Excel icon" class="w-7 h-7 md:w-8 md:h-8 object-contain" style="width:1.3rem;height:1.3rem;">
+                        <img src="{{ asset('img/excel.png') }}" alt="Excel icon" class="w-7 h-7 md:w-8 md:h-8 object-contain" style="width:1.3rem;height:1.3rem;">
                     </span>
                 </div>
             @endif
-            <a href="{{ $fullscreenUrl }}" target="_blank" class="chart-action-btn dk-table-heading__fullscreen-btn js-fullscreen-btn ml-0 sm:ml-4" data-base-url="{{ route($fullscreenRoute, request()->query()) }}" title="Buka di tab baru (Fullscreen)">
+            <a href="{{ route($fullscreenRoute, array_merge(request()->query(), ['category' => $activeCategory])) }}" target="_blank" class="chart-action-btn dk-table-heading__fullscreen-btn js-fullscreen-btn ml-0 sm:ml-4" data-base-url="{{ route($fullscreenRoute, request()->query()) }}" title="Buka di tab baru (Fullscreen)">
                 <img src="{{ asset('img/maximize.png') }}" alt="" class="w-7 h-7 md:w-8 md:h-8 object-contain" style="width:1.3rem;height:1.3rem;" aria-hidden="true">
                 <span class="sr-only">Buka di tab baru (Fullscreen)</span>
             </a>
