@@ -12,11 +12,11 @@
     <!-- Modal container -->
     <div class="relative z-[99999] flex min-h-full w-full h-full items-center justify-center px-4 py-8 pointer-events-none">
         <!-- Modal panel -->
-        <div id="downloadModalPanel" class="pointer-events-auto mx-auto inline-block w-full max-w-xl transform overflow-hidden rounded-2xl !bg-white dark:!bg-gray-800 shadow-xl transition-all">
-            <div class="!bg-white dark:!bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div id="downloadModalPanel" class="download-modal-panel pointer-events-auto mx-auto inline-block w-full max-w-xl transform overflow-hidden rounded-2xl shadow-xl transition-all">
+            <div class="download-modal-content px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <!-- Header -->
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-medium !text-gray-900 dark:!text-white" id="download-modal-title">{{ $title }}</h3>
+                    <h3 class="download-modal-title text-lg font-medium" id="download-modal-title">{{ $title }}</h3>
                     <button type="button" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none" id="closeDownloadModal">
                         <span class="sr-only">Close</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,7 +26,7 @@
                 </div>
 
                 <!-- Instruction text -->
-                <p class="text-sm !text-gray-600 dark:!text-gray-300 mb-4">
+                <p class="download-modal-text text-sm mb-4">
                     Silahkan isi data diri dan tujuan penggunaan data agregat terlebih dahulu
                 </p>
 
@@ -40,61 +40,61 @@
                     <div class="space-y-3">
                         <!-- Nama Lengkap -->
                         <div>
-                            <label for="nama_lengkap" class="block text-sm font-medium !text-gray-700 dark:!text-gray-300 mb-0.5">
+                            <label for="nama_lengkap" class="download-modal-label block text-sm font-medium mb-0.5">
                                 Nama Lengkap <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="nama_lengkap" id="nama_lengkap" required
-                                class="w-full px-3 py-1.5 border border-gray-200 !bg-white !text-gray-900 dark:border-gray-600 dark:!bg-gray-700 dark:!text-white dark:placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
+                                class="download-modal-input w-full px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
                                 placeholder="Masukkan nama lengkap">
                         </div>
 
                         <!-- Alamat -->
                         <div>
-                            <label for="alamat" class="block text-sm font-medium !text-gray-700 dark:!text-gray-300 mb-0.5">
+                            <label for="alamat" class="download-modal-label block text-sm font-medium mb-0.5">
                                 Alamat <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="alamat" id="alamat" required
-                                class="w-full px-3 py-1.5 border border-gray-200 !bg-white !text-gray-900 dark:border-gray-600 dark:!bg-gray-700 dark:!text-white dark:placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
+                                class="download-modal-input w-full px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
                                 placeholder="Masukkan alamat">
                         </div>
 
                         <!-- Pekerjaan -->
                         <div>
-                            <label for="pekerjaan" class="block text-sm font-medium !text-gray-700 dark:!text-gray-300 mb-0.5">
+                            <label for="pekerjaan" class="download-modal-label block text-sm font-medium mb-0.5">
                                 Pekerjaan <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="pekerjaan" id="pekerjaan" required
-                                class="w-full px-3 py-1.5 border border-gray-200 !bg-white !text-gray-900 dark:border-gray-600 dark:!bg-gray-700 dark:!text-white dark:placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
+                                class="download-modal-input w-full px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
                                 placeholder="Masukkan pekerjaan">
                         </div>
 
                         <!-- Instansi / Tempat Kerja -->
                         <div>
-                            <label for="instansi" class="block text-sm font-medium !text-gray-700 dark:!text-gray-300 mb-0.5">
+                            <label for="instansi" class="download-modal-label block text-sm font-medium mb-0.5">
                                 Instansi / Tempat Kerja <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="instansi" id="instansi" required
-                                class="w-full px-3 py-1.5 border border-gray-200 !bg-white !text-gray-900 dark:border-gray-600 dark:!bg-gray-700 dark:!text-white dark:placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
+                                class="download-modal-input w-full px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
                                 placeholder="Masukkan instansi atau tempat kerja">
                         </div>
 
                         <!-- Nomor Telepon -->
                         <div>
-                            <label for="nomor_telepon" class="block text-sm font-medium !text-gray-700 dark:!text-gray-300 mb-0.5">
+                            <label for="nomor_telepon" class="download-modal-label block text-sm font-medium mb-0.5">
                                 Nomor Telepon <span class="text-red-500">*</span>
                             </label>
                             <input type="tel" name="nomor_telepon" id="nomor_telepon" required
-                                class="w-full px-3 py-1.5 border border-gray-200 !bg-white !text-gray-900 dark:border-gray-600 dark:!bg-gray-700 dark:!text-white dark:placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
+                                class="download-modal-input w-full px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
                                 placeholder="Masukkan nomor telepon">
                         </div>
 
                         <!-- Tujuan Penggunaan -->
                         <div>
-                            <label for="tujuan_penggunaan" class="block text-sm font-medium !text-gray-700 dark:!text-gray-300 mb-0.5">
+                            <label for="tujuan_penggunaan" class="download-modal-label block text-sm font-medium mb-0.5">
                                 Tujuan Penggunaan <span class="text-red-500">*</span>
                             </label>
                             <textarea name="tujuan_penggunaan" id="tujuan_penggunaan" rows="3" required
-                                class="w-full px-3 py-1.5 border border-gray-200 !bg-white !text-gray-900 dark:border-gray-600 dark:!bg-gray-700 dark:!text-white dark:placeholder-gray-400 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
+                                class="download-modal-input w-full px-3 py-1.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:border-[#009B4D]"
                                 placeholder="Masukkan tujuan penggunaan data"></textarea>
                         </div>
 
@@ -102,7 +102,7 @@
                         <div class="flex items-start">
                             <input type="checkbox" name="syarat_ketentuan" id="syarat_ketentuan" required
                                 class="mt-1 h-4 w-4 text-[#009B4D] focus:ring-[#009B4D] border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded">
-                            <label for="syarat_ketentuan" class="ml-2 text-sm !text-gray-700 dark:!text-gray-300">
+                            <label for="syarat_ketentuan" class="download-modal-label ml-2 text-sm">
                                 Saya telah membaca 
                                 <a href="#" id="termsLink" class="text-[#009B4D] hover:text-[#007a3d] dark:text-green-400 dark:hover:text-green-300 underline" target="_blank">
                                     Syarat & Ketentuan Layanan Serdadu
@@ -114,7 +114,7 @@
 
                     <!-- Action buttons -->
                     <div class="mt-6 flex justify-end space-x-3">
-                        <button type="button" id="cancelDownload" class="px-4 py-2 text-sm font-medium !text-gray-700 !bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009B4D] dark:!bg-gray-700 dark:!text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600">
+                        <button type="button" id="cancelDownload" class="download-modal-button px-4 py-2 text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009B4D]">
                             Batal
                         </button>
                         <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-[#009B4D] border border-transparent rounded-md hover:bg-[#007a3d] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#009B4D]">
@@ -147,6 +147,78 @@
     .dark input:-webkit-autofill:active {
         -webkit-box-shadow: 0 0 0 30px #374151 inset !important; /* gray-700 */
         -webkit-text-fill-color: white !important;
+    }
+    
+    /* Force Light Mode Styles (when NOT in dark mode) */
+    :not(.dark) .download-modal-panel {
+        background-color: white !important;
+    }
+    
+    :not(.dark) .download-modal-content {
+        background-color: white !important;
+    }
+    
+    :not(.dark) .download-modal-title {
+        color: #111827 !important;
+    }
+    
+    :not(.dark) .download-modal-text {
+        color: #4B5563 !important;
+    }
+    
+    :not(.dark) .download-modal-label {
+        color: #374151 !important;
+    }
+    
+    :not(.dark) .download-modal-input {
+        background-color: white !important;
+        color: #111827 !important;
+    }
+    
+    :not(.dark) .download-modal-button {
+        background-color: white !important;
+        color: #374151 !important;
+    }
+    
+    /* Dark Mode Styles */
+    .dark .download-modal-panel {
+        background-color: #1F2937 !important; /* gray-800 */
+    }
+    
+    .dark .download-modal-content {
+        background-color: #1F2937 !important; /* gray-800 */
+    }
+    
+    .dark .download-modal-title {
+        color: white !important;
+    }
+    
+    .dark .download-modal-text {
+        color: #D1D5DB !important; /* gray-300 */
+    }
+    
+    .dark .download-modal-label {
+        color: #D1D5DB !important; /* gray-300 */
+    }
+    
+    .dark .download-modal-input {
+        background-color: #374151 !important; /* gray-700 */
+        color: white !important;
+        border-color: #4B5563 !important; /* gray-600 */
+    }
+    
+    .dark .download-modal-input::placeholder {
+        color: #9CA3AF !important; /* gray-400 */
+    }
+    
+    .dark .download-modal-button {
+        background-color: #374151 !important; /* gray-700 */
+        color: #E5E7EB !important; /* gray-200 */
+        border-color: #4B5563 !important; /* gray-600 */
+    }
+    
+    .dark .download-modal-button:hover {
+        background-color: #4B5563 !important; /* gray-600 */
     }
 </style>
 @endpush
