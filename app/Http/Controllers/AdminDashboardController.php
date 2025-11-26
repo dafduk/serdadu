@@ -63,11 +63,23 @@ class AdminDashboardController extends PublicDashboardController
      */
     public function downloadLogs()
     {
+        // Mark all unseen logs as seen
+        DownloadLog::where('is_seen', false)->update(['is_seen' => true]);
+
         $logs = DownloadLog::latest()->paginate(20);
         return view('admin.download-logs', [
             'title' => 'Log Download User',
             'logs' => $logs,
         ]);
+    }
+
+    /**
+     * Get the count of unseen download logs.
+     */
+    public function getUnseenCount()
+    {
+        $count = DownloadLog::where('is_seen', false)->count();
+        return response()->json(['count' => $count]);
     }
 
     /**
@@ -93,6 +105,8 @@ class AdminDashboardController extends PublicDashboardController
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'current_password' => ['nullable', 'required_with:password', 'current_password'],
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
+            'avatar' => ['nullable', 'image', 'max:2048'], // Max 2MB
+            'banner' => ['nullable', 'image', 'max:5120'], // Max 5MB
         ]);
 
         $user->name = $validated['name'];
@@ -102,9 +116,33 @@ class AdminDashboardController extends PublicDashboardController
             $user->password = Hash::make($validated['password']);
         }
 
+        // Handle Avatar Upload
+        if ($request->hasFile('avatar')) {
+            // Delete old avatar if exists
+            if ($user->avatar && file_exists(public_path($user->avatar))) {
+                unlink(public_path($user->avatar));
+            }
+            
+            $avatarName = 'avatar_' . $user->id . '_' . time() . '.' . $request->avatar->extension();
+            $request->avatar->move(public_path('avatars'), $avatarName);
+            $user->avatar = 'avatars/' . $avatarName;
+        }
+
+        // Handle Banner Upload
+        if ($request->hasFile('banner')) {
+            // Delete old banner if exists
+            if ($user->banner && file_exists(public_path($user->banner))) {
+                unlink(public_path($user->banner));
+            }
+
+            $bannerName = 'banner_' . $user->id . '_' . time() . '.' . $request->banner->extension();
+            $request->banner->move(public_path('banners'), $bannerName);
+            $user->banner = 'banners/' . $bannerName;
+        }
+
         $user->save();
 
-        return back()->with('success', 'Profil berhasil diperbarui.');
+        return back()->with('status', 'profile-updated');
     }
 
     /**

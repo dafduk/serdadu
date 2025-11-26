@@ -22,6 +22,7 @@ class DownloadLog extends Model
         'filters',
         'ip_address',
         'user_agent',
+        'is_seen',
     ];
 
     protected $casts = [

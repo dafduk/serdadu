@@ -309,13 +309,14 @@
                             $compareLabel .= ' - ' . $villageName;
                         }
                     }
-                }
+
             }
+        }
         }
     @endphp
 
     {{-- Filter Section --}}
-    <div class="dk-card mb-4">
+    <div class="dk-card mb-4 animate-fade-in-up">
         <div class="p-4">
             <h6 class="dk-card__title mb-4">Pengaturan Perbandingan</h6>
             
@@ -462,7 +463,7 @@
         </div>
     @else
         {{-- Tab Navigation - Only Visible when data is selected --}}
-        <div class="dk-card mt-4">
+        <div class="dk-card mt-4 animate-fade-in-up delay-200">
             <ul class="dk-tabs" id="chartTabs" role="tablist">
                 @foreach ($tabs as $key => $label)
                     <li role="presentation">

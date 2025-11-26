@@ -83,7 +83,7 @@ class ImportController extends Controller
             // Jalankan impor dengan tahun & semester dari form
             $result = $service->import($fullPath, $year, $semester);
 
-            return view('admin.import-result', [
+            return view('admin.import', [
                 'filename'   => $filename,
                 'summary'    => $result['summary'] ?? [],
                 'highlights' => $result['highlights'] ?? [],

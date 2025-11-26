@@ -129,24 +129,99 @@
 
 @push('styles')
 <style>
-    /* Override browser autofill styles */
+    /* Override browser autofill styles - SCOPED TO DOWNLOAD MODAL ONLY */
     /* Light Mode */
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover, 
-    input:-webkit-autofill:focus, 
-    input:-webkit-autofill:active {
+    #downloadModal input:-webkit-autofill,
+    #downloadModal input:-webkit-autofill:hover, 
+    #downloadModal input:-webkit-autofill:focus, 
+    #downloadModal input:-webkit-autofill:active,
+    #downloadModal textarea:-webkit-autofill,
+    #downloadModal textarea:-webkit-autofill:hover, 
+    #downloadModal textarea:-webkit-autofill:focus, 
+    #downloadModal textarea:-webkit-autofill:active {
         -webkit-box-shadow: 0 0 0 30px white inset !important;
         -webkit-text-fill-color: black !important;
         transition: background-color 5000s ease-in-out 0s;
     }
 
     /* Dark Mode */
-    .dark input:-webkit-autofill,
-    .dark input:-webkit-autofill:hover, 
-    .dark input:-webkit-autofill:focus, 
-    .dark input:-webkit-autofill:active {
+    .dark #downloadModal input:-webkit-autofill,
+    .dark #downloadModal input:-webkit-autofill:hover, 
+    .dark #downloadModal input:-webkit-autofill:focus, 
+    .dark #downloadModal input:-webkit-autofill:active,
+    .dark #downloadModal textarea:-webkit-autofill,
+    .dark #downloadModal textarea:-webkit-autofill:hover, 
+    .dark #downloadModal textarea:-webkit-autofill:focus, 
+    .dark #downloadModal textarea:-webkit-autofill:active {
         -webkit-box-shadow: 0 0 0 30px #374151 inset !important; /* gray-700 */
         -webkit-text-fill-color: white !important;
+    }
+    
+    /* Modal Animations - Match Help Menu */
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    
+    @keyframes modalFadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+    
+    @keyframes modalSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(1rem) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    
+    @keyframes modalSlideOut {
+        from {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(1rem) scale(0.95);
+        }
+    }
+    
+    /* Apply animations */
+    #downloadModal.modal-entering {
+        animation: modalFadeIn 300ms ease-out forwards;
+    }
+    
+    #downloadModal.modal-leaving {
+        animation: modalFadeOut 200ms ease-in forwards;
+    }
+    
+    #downloadModal.modal-entering #downloadModalPanel {
+        animation: modalSlideIn 300ms ease-out forwards;
+    }
+    
+    #downloadModal.modal-leaving #downloadModalPanel {
+        animation: modalSlideOut 200ms ease-in forwards;
+    }
+    
+    /* Overlay animations */
+    #downloadModalOverlay.overlay-entering {
+        animation: modalFadeIn 300ms ease-out forwards;
+    }
+    
+    #downloadModalOverlay.overlay-leaving {
+        animation: modalFadeOut 200ms ease-in forwards;
     }
     
     /* Force Light Mode Styles (when NOT in dark mode) */
@@ -182,11 +257,11 @@
     
     /* Dark Mode Styles */
     .dark .download-modal-panel {
-        background-color: #1F2937 !important; /* gray-800 */
+        background-color: #0F172A !important; /* slate-900 - darker to match help menu */
     }
     
     .dark .download-modal-content {
-        background-color: #1F2937 !important; /* gray-800 */
+        background-color: #0F172A !important; /* slate-900 - darker to match help menu */
     }
     
     .dark .download-modal-title {
@@ -284,18 +359,31 @@
             return;
         }
 
-    // Function to close modal
+    // Function to close modal with animation
     function closeDownloadModal() {
         if (modal) {
-            modal.classList.add('hidden');
-            modal.style.removeProperty('display');
-            document.body.style.overflow = '';
-            document.documentElement.style.overflow = '';
+            // Add leaving animation classes
+            modal.classList.add('modal-leaving');
+            modal.classList.remove('modal-entering');
             if (overlay) {
-                overlay.classList.add('hidden');
-                overlay.style.removeProperty('display');
+                overlay.classList.add('overlay-leaving');
+                overlay.classList.remove('overlay-entering');
             }
-            if (form) form.reset();
+            
+            // Wait for animation to complete before hiding
+            setTimeout(function() {
+                modal.classList.add('hidden');
+                modal.style.removeProperty('display');
+                modal.classList.remove('modal-leaving');
+                document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
+                if (overlay) {
+                    overlay.classList.add('hidden');
+                    overlay.style.removeProperty('display');
+                    overlay.classList.remove('overlay-leaving');
+                }
+                if (form) form.reset();
+            }, 200); // Match animation duration
         }
     }
     window.__closeDownloadModal = closeDownloadModal;

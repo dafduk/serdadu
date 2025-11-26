@@ -31,7 +31,7 @@
             <div class="relative z-10">
                 <div class="flex items-center gap-3 mb-2">
                     <img src="{{ asset('img/kabupaten-madiun.png') }}" alt="Logo Kabupaten Madiun" class="w-10 h-10 object-contain bg-white/10 rounded-lg p-1">
-                    <span class="text-sm font-medium tracking-wider uppercase opacity-90">Dukcapil Kab. Madiun</span>
+                    <span class="text-sm font-medium tracking-wider uppercase opacity-90">Dinas Kependudukan & Pencatatan Sipil Kabupaten Madiun</span>
                 </div>
             </div>
             

@@ -114,7 +114,7 @@
 @endpush
 
 @section('content')
-    <div class="dk-card">
+    <div class="dk-card animate-fade-in-up">
         <div class="p-6 md:p-8 terms-container">
             {{-- Header --}}
             <div class="terms-header text-center mb-6">
@@ -137,7 +137,7 @@
             </div>
 
             {{-- Section I: Definisi --}}
-            <div class="terms-section">
+            <div class="terms-section animate-fade-in-up delay-100">
                 <h2 class="terms-section-title">I. DEFINISI</h2>
                 <div class="space-y-3 text-gray-700 leading-relaxed">
                     <p>
@@ -159,7 +159,7 @@
             </div>
 
             {{-- Section II: Akses dan Penggunaan Layanan --}}
-            <div class="terms-section">
+            <div class="terms-section animate-fade-in-up delay-200">
                 <h2 class="terms-section-title">II. AKSES DAN PENGGUNAAN LAYANAN</h2>
                 <div class="space-y-4 text-gray-700 leading-relaxed">
                     <p>
@@ -195,7 +195,7 @@
             </div>
 
             {{-- Section III: Pengelolaan Data Pribadi Pengguna --}}
-            <div class="terms-section">
+            <div class="terms-section animate-fade-in-up delay-300">
                 <h2 class="terms-section-title">III. PENGELOLAAN DATA PRIBADI PENGGUNA</h2>
                 <div class="space-y-3 text-gray-700 leading-relaxed">
                     <p>
@@ -211,7 +211,7 @@
             </div>
 
             {{-- Section IV: Data Log dan Keamanan Sistem --}}
-            <div class="terms-section">
+            <div class="terms-section animate-fade-in-up delay-400">
                 <h2 class="terms-section-title">IV. DATA LOG DAN KEAMANAN SISTEM</h2>
                 <div class="space-y-3 text-gray-700 leading-relaxed">
                     <p>
@@ -227,7 +227,7 @@
             </div>
 
             {{-- Section V: Keadaan Kahar (Force Majeure) --}}
-            <div class="terms-section">
+            <div class="terms-section animate-fade-in-up delay-500">
                 <h2 class="terms-section-title">V. KEADAAN KAHAR (FORCE MAJEURE)</h2>
                 <div class="space-y-3 text-gray-700 leading-relaxed">
                     <p>
@@ -247,7 +247,7 @@
             </div>
 
             {{-- Section VI: Perubahan Syarat dan Ketentuan --}}
-            <div class="terms-section">
+            <div class="terms-section animate-fade-in-up delay-600">
                 <h2 class="terms-section-title">VI. PERUBAHAN SYARAT DAN KETENTUAN</h2>
                 <div class="text-gray-700 leading-relaxed">
                     <p>
@@ -257,7 +257,7 @@
             </div>
 
             {{-- Section VII: Penutup --}}
-            <div class="terms-section">
+            <div class="terms-section animate-fade-in-up delay-700">
                 <h2 class="terms-section-title">VII. PENUTUP</h2>
                 <div class="text-gray-700 leading-relaxed">
                     <p>

@@ -536,7 +536,7 @@
     </style>
 </head>
 
-<body class="bg-gray-50 antialiased" data-sidebar-state x-data="{ isHelpModalOpen: false }">
+<body class="bg-gray-50 dark:bg-slate-900 antialiased transition-colors duration-300" data-sidebar-state x-data="{ isHelpModalOpen: false }">
     @php
         $breadcrumbIcon = function ($relativePath) {
             $assetUrl = asset($relativePath);
@@ -554,11 +554,11 @@
     <!-- Sidebar Desktop -->
     <aside 
         id="desktop-sidebar"
-        class="fixed top-0 left-0 z-40 h-screen transition-all duration-300 ease-in-out bg-white border-r border-gray-200 shadow-sm overflow-hidden flex-col hidden lg:flex w-20 hover:w-64 group"
+        class="fixed top-0 left-0 z-40 h-screen transition-all duration-300 ease-in-out bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden flex-col hidden lg:flex w-20 hover:w-64 group"
         data-sidebar
     >
         <!-- Brand Section -->
-        <div class="flex items-center border-b border-gray-200 px-4 h-16" data-sidebar-brand>
+        <div class="flex items-center border-b border-gray-200 dark:border-slate-700 px-4 h-16" data-sidebar-brand>
             <div class="flex items-center gap-3 min-w-0 flex-1 pl-2" data-sidebar-brand-content>
                 <img 
                     src="{{ asset('img/kabupaten-madiun.png') }}" 
@@ -567,8 +567,8 @@
                     data-sidebar-logo
                 >
                 <div class="min-w-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden group-hover:block" data-sidebar-text>
-                    <div class="font-semibold text-gray-900 truncate">Serdadu</div>
-                    <div class="text-xs text-gray-500 truncate">Sistem Rekap Data Terpadu</div>
+                    <div class="font-semibold text-gray-900 dark:text-white truncate">Serdadu</div>
+                    <div class="text-xs text-gray-500 dark:text-slate-400 truncate">Sistem Rekap Data Terpadu</div>
                 </div>
             </div>
         </div>
@@ -578,7 +578,7 @@
             <div class="space-y-1">
                 <a 
                     href="{{ route('admin.landing') }}"
-                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.landing') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.landing') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
                     title="Home"
                     data-sidebar-nav-item
                 >
@@ -588,7 +588,7 @@
                 
                 <a 
                     href="{{ route('admin.data') }}"
-                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.data') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.data') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
                     title="Tabel"
                     data-sidebar-nav-item
                 >
@@ -598,7 +598,7 @@
                 
                 <a 
                     href="{{ route('admin.charts') }}"
-                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.charts') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.charts') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
                     title="Grafik"
                     data-sidebar-nav-item
                 >
@@ -608,7 +608,7 @@
                 
                 <a 
                     href="{{ route('admin.compare') }}"
-                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.compare') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.compare') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
                     title="Compare"
                     data-sidebar-nav-item
                 >
@@ -623,7 +623,7 @@
 
                 <a 
                     href="{{ route('admin.import') }}"
-                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.import') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.import') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
                     title="Import Data"
                     data-sidebar-nav-item
                 >
@@ -635,19 +635,41 @@
 
                 <a 
                     href="{{ route('admin.download-logs') }}"
-                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.download-logs') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.download-logs') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
                     title="User Download"
                     data-sidebar-nav-item
                 >
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <span class="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden group-hover:inline" data-sidebar-nav-text>User Download</span>
+                    <div class="relative flex-shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <!-- Notification Badge -->
+                        <span 
+                            x-data="{ count: {{ $unseenDownloadLogsCount ?? 0 }} }"
+                            x-init="
+                                setInterval(() => {
+                                    fetch('{{ route('admin.download-logs.count') }}')
+                                        .then(res => res.json())
+                                        .then(data => count = data.count)
+                                        .catch(err => console.error(err));
+                                }, 5000);
+                            "
+                            x-show="count > 0"
+                            x-text="count"
+                            class="absolute -top-2 -right-2 inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1 text-xs font-bold leading-none text-white bg-blue-600 rounded-full border-2 border-white dark:border-slate-800"
+                            style="display: none;"
+                        >
+                            {{ $unseenDownloadLogsCount ?? 0 }}
+                        </span>
+                    </div>
+                    <span class="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden group-hover:inline" data-sidebar-nav-text>
+                        User Download
+                    </span>
                 </a>
 
                 <a 
                     href="{{ route('admin.account') }}"
-                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.account') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                    class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.account') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
                     title="Akun"
                     data-sidebar-nav-item
                 >
@@ -661,7 +683,7 @@
                     @csrf
                     <button 
                         type="submit" 
-                        class="w-full sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-red-600 hover:bg-red-50 hover:text-red-700"
+                        class="w-full sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-700 dark:hover:text-red-300"
                         title="Keluar"
                         data-sidebar-nav-item
                     >
@@ -679,7 +701,7 @@
             <a 
                 href="#"
                 @click.prevent="isHelpModalOpen = true"
-                class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-700 hover:bg-gray-100"
+                class="sidebar-nav-link flex items-center gap-5 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700"
                 title="Bantuan"
                 data-sidebar-nav-item
             >
@@ -692,7 +714,7 @@
 </aside>
 
     <!-- Mobile Header -->
-    <header class="lg:hidden fixed top-0 left-0 right-0 z-50 h-16 bg-white border-b border-gray-200 shadow-sm">
+    <header class="lg:hidden fixed top-0 left-0 right-0 z-50 h-16 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 shadow-sm">
         <div class="flex items-center justify-between h-full px-4">
             <div class="flex items-center gap-3">
                 <img 
@@ -701,14 +723,14 @@
                     class="w-10 h-10 object-contain"
                 >
                 <div>
-                    <div class="font-semibold text-gray-900 text-sm">Serdadu</div>
-                    <div class="text-xs text-gray-500">Sistem Rekap Data Terpadu</div>
+                    <div class="font-semibold text-gray-900 dark:text-white text-sm">Serdadu</div>
+                    <div class="text-xs text-gray-500 dark:text-slate-400">Sistem Rekap Data Terpadu</div>
                 </div>
             </div>
             <div class="flex items-center gap-2">
                 <button 
                     type="button"
-                    class="theme-toggle-btn p-2 rounded-lg transition-colors"
+                    class="theme-toggle-btn p-2 rounded-lg transition-colors text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700"
                     data-theme-toggle
                     aria-label="Toggle theme"
                 >
@@ -721,7 +743,7 @@
                 </button>
                 <button 
                     id="mobile-menu-toggle"
-                    class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                    class="p-2 text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
                     aria-label="Toggle menu"
                 >
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -741,19 +763,19 @@
     <!-- Mobile Sidebar -->
     <aside 
         id="mobile-sidebar"
-        class="lg:hidden fixed top-0 left-0 z-40 h-full w-64 bg-white shadow-xl transform -translate-x-full transition-transform duration-300 flex flex-col"
+        class="lg:hidden fixed top-0 left-0 z-40 h-full w-64 bg-white dark:bg-slate-800 shadow-xl transform -translate-x-full transition-transform duration-300 flex flex-col"
     >
-        <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200 flex-shrink-0">
+        <div class="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-slate-700 flex-shrink-0">
             <div class="flex items-center gap-3">
                 <img src="{{ asset('img/kabupaten-madiun.png') }}" alt="Logo" class="w-10 h-10 object-contain">
                 <div>
-                    <div class="font-semibold text-gray-900 text-sm">Serdadu</div>
-                    <div class="text-xs text-gray-500">Sistem Rekap Data Terpadu</div>
+                    <div class="font-semibold text-gray-900 dark:text-white text-sm">Serdadu</div>
+                    <div class="text-xs text-gray-500 dark:text-slate-400">Sistem Rekap Data Terpadu</div>
                 </div>
             </div>
             <button 
                 id="mobile-menu-close"
-                class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                class="p-2 text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
                 aria-label="Close menu"
             >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -765,7 +787,7 @@
         <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
             <a 
                 href="{{ route('admin.landing') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.landing') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.landing') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
             >
                 <img src="{{ asset('img/home.png') }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Beranda</span>
@@ -773,7 +795,7 @@
             
             <a 
                 href="{{ route('admin.data') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.data') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.data') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
             >
                 <img src="{{ asset('img/table.png') }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Tabel</span>
@@ -781,7 +803,7 @@
             
             <a 
                 href="{{ route('admin.charts') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.charts') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.charts') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
             >
                 <img src="{{ $chartIconAsset }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Grafik</span>
@@ -789,7 +811,7 @@
             
             <a 
                 href="{{ route('admin.compare') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.compare') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.compare') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
             >
                 <img src="{{ $compareIconAsset }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Perbandingan</span>
@@ -801,7 +823,7 @@
 
             <a 
                 href="{{ route('admin.import') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.import') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.import') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
             >
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
@@ -811,17 +833,39 @@
 
             <a 
                 href="{{ route('admin.download-logs') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.download-logs') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.download-logs') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
             >
-                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                <span>User Download</span>
+                <div class="relative flex-shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <!-- Notification Badge -->
+                    <span 
+                        x-data="{ count: {{ $unseenDownloadLogsCount ?? 0 }} }"
+                        x-init="
+                            setInterval(() => {
+                                fetch('{{ route('admin.download-logs.count') }}')
+                                    .then(res => res.json())
+                                    .then(data => count = data.count)
+                                    .catch(err => console.error(err));
+                            }, 5000);
+                        "
+                        x-show="count > 0"
+                        x-text="count"
+                        class="absolute -top-2 -right-2 inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1 text-xs font-bold leading-none text-white bg-green-600 rounded-full border-2 border-white dark:border-slate-800"
+                        style="display: none;"
+                    >
+                        {{ $unseenDownloadLogsCount ?? 0 }}
+                    </span>
+                </div>
+                <div class="flex items-center justify-between w-full">
+                    <span>User Download</span>
+                </div>
             </a>
 
             <a 
                 href="{{ route('admin.account') }}"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.account') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 hover:bg-gray-100' }}"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->routeIs('admin.account') ? 'bg-[#009B4D] text-white active' : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700' }}"
             >
                 <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -833,7 +877,7 @@
                 @csrf
                 <button 
                     type="submit" 
-                    class="w-full mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-red-600 hover:bg-red-50 hover:text-red-700"
+                    class="w-full mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-700 dark:hover:text-red-300"
                 >
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
@@ -848,7 +892,7 @@
             <a 
                 href="#"
                 @click.prevent="isHelpModalOpen = true"
-                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-700 hover:bg-gray-100"
+                class="mobile-menu-link sidebar-nav-link flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700"
             >
                 <img src="{{ asset('img/help.png') }}" alt="" class="sidebar-nav-icon w-5 h-5 flex-shrink-0">
                 <span>Bantuan</span>
@@ -863,7 +907,7 @@
         style="will-change: margin-left;"
     >
         <!-- Breadcrumb Navigation -->
-        <div class="border-b border-gray-200 bg-white px-4 lg:px-6 py-3">
+        <div class="border-b border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 lg:px-6 py-3">
             <div class="flex items-center justify-between gap-4">
             <nav class="flex items-center gap-2 text-sm" aria-label="Breadcrumb">
                 @php
@@ -1071,7 +1115,7 @@
                 @php $canGoBack = count($breadcrumbs) > 1; @endphp
                 <button 
                     @if($canGoBack) onclick="window.history.back()" @else disabled aria-disabled="true" @endif
-                    class="flex items-center justify-center w-7 h-7 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:ring-offset-2 {{ $canGoBack ? 'text-gray-500 hover:text-gray-700 hover:bg-gray-100' : 'text-gray-300 cursor-default' }}"
+                    class="flex items-center justify-center w-7 h-7 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-[#009B4D] focus:ring-offset-2 {{ $canGoBack ? 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-700' : 'text-gray-300 dark:text-slate-600 cursor-default' }}"
                     title="Kembali"
                     aria-label="Kembali"
                 >
@@ -1093,7 +1137,7 @@
                             @if($breadcrumb['route'] && !$breadcrumb['active'])
                                 <a 
                                     href="{{ route($breadcrumb['route']) }}" 
-                                    class="flex items-center gap-1.5 text-gray-600 text-sm hover:text-gray-900 transition-colors {{ (isset($categoryLabel) && $breadcrumb['label'] === $categoryLabel) ? 'breadcrumb-category' : '' }}"
+                                    class="flex items-center gap-1.5 text-gray-600 dark:text-slate-400 text-sm hover:text-gray-900 dark:hover:text-white transition-colors {{ (isset($categoryLabel) && $breadcrumb['label'] === $categoryLabel) ? 'breadcrumb-category' : '' }}"
                                 >
                                     @if($breadcrumb['icon'] === 'home')
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1117,7 +1161,7 @@
                                     <span>{{ $breadcrumb['label'] }}</span>
                                 </a>
                             @else
-                                <span class="flex items-center gap-1.5 text-gray-900 text-sm font-medium {{ isset($categoryLabel) && $breadcrumb['label'] === $categoryLabel ? 'breadcrumb-category' : '' }}">
+                                <span class="flex items-center gap-1.5 text-gray-900 dark:text-white text-sm font-medium {{ isset($categoryLabel) && $breadcrumb['label'] === $categoryLabel ? 'breadcrumb-category' : '' }}">
                                     @if($breadcrumb['icon'] === 'home')
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -1146,7 +1190,7 @@
             </nav>
             <button 
                 type="button"
-                class="theme-toggle-btn hidden lg:inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-colors"
+                class="theme-toggle-btn hidden lg:inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-700"
                 data-theme-toggle
                 aria-label="Toggle theme"
             >
@@ -1167,7 +1211,7 @@
     </main>
     
     <!-- Website Footer -->
-    <footer id="website-footer" class="bg-white border-t border-gray-200 p-3 lg:p-4 lg:ml-20 transition-all duration-300 ease-in-out">
+    <footer id="website-footer" class="bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 p-3 lg:p-4 lg:ml-20 transition-all duration-300 ease-in-out">
         <div class="flex flex-col gap-3 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
             <div class="text-xs text-gray-500 whitespace-normal sm:whitespace-nowrap">
                 Copyright © 2025 
@@ -1235,12 +1279,12 @@
                 x-transition:leave="ease-in duration-200"
                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                class="pointer-events-auto mx-auto inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white shadow-xl transition-all"
+                class="pointer-events-auto mx-auto inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-xl transition-all"
             >
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="bg-white dark:bg-slate-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <!-- Header -->
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-medium text-gray-900" id="help-modal-title">Pusat Bantuan</h3>
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white" id="help-modal-title">Pusat Bantuan</h3>
                         <button @click="isHelpModalOpen = false" type="button" class="text-gray-400 hover:text-gray-500 focus:outline-none">
                             <span class="sr-only">Close</span>
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1274,65 +1318,65 @@
                         <div x-show="activeTab === 'faq'" class="space-y-4" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0">
                             <!-- FAQ Item 1 -->
                             <div x-data="{ expanded: false }" class="border border-gray-200 rounded-lg overflow-hidden">
-                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 px-4 py-3 text-left text-sm font-medium text-gray-900 hover:bg-gray-100 transition-colors">
+                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 dark:bg-slate-700 px-4 py-3 text-left text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors">
                                     <span>Bagaimana cara mengunduh data?</span>
                                     <svg :class="expanded ? 'rotate-180' : ''" class="h-5 w-5 text-gray-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </button>
-                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 bg-white border-t border-gray-200">
+                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-600">
                                     Anda dapat mengunduh data melalui halaman <strong>Tabel</strong>. Pilih filter Tahun dan Semester, lalu klik tombol <strong>Download</strong> di pojok kanan atas tabel (tersedia format Excel dan PDF).
                                 </div>
                             </div>
 
                             <!-- FAQ Item 2 -->
                             <div x-data="{ expanded: false }" class="border border-gray-200 rounded-lg overflow-hidden">
-                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 px-4 py-3 text-left text-sm font-medium text-gray-900 hover:bg-gray-100 transition-colors">
+                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 dark:bg-slate-700 px-4 py-3 text-left text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors">
                                     <span>Mengapa grafik tidak muncul?</span>
                                     <svg :class="expanded ? 'rotate-180' : ''" class="h-5 w-5 text-gray-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </button>
-                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 bg-white border-t border-gray-200">
+                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-600">
                                     Pastikan koneksi internet Anda stabil. Jika masih bermasalah, coba muat ulang halaman (refresh) atau bersihkan cache browser Anda.
                                 </div>
                             </div>
 
                             <!-- FAQ Item 3 -->
                             <div x-data="{ expanded: false }" class="border border-gray-200 rounded-lg overflow-hidden">
-                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 px-4 py-3 text-left text-sm font-medium text-gray-900 hover:bg-gray-100 transition-colors">
+                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 dark:bg-slate-700 px-4 py-3 text-left text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors">
                                     <span>Apakah data ini update?</span>
                                     <svg :class="expanded ? 'rotate-180' : ''" class="h-5 w-5 text-gray-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </button>
-                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 bg-white border-t border-gray-200">
+                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-600">
                                     Ya, data diperbarui secara berkala setiap semester oleh Dinas Kependudukan dan Pencatatan Sipil Kabupaten Madiun.
                                 </div>
                             </div>
 
                             <!-- FAQ Item 4 -->
                             <div x-data="{ expanded: false }" class="border border-gray-200 rounded-lg overflow-hidden">
-                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 px-4 py-3 text-left text-sm font-medium text-gray-900 hover:bg-gray-100 transition-colors">
+                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 dark:bg-slate-700 px-4 py-3 text-left text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors">
                                     <span>Bagaimana jika saya menemukan kesalahan data?</span>
                                     <svg :class="expanded ? 'rotate-180' : ''" class="h-5 w-5 text-gray-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </button>
-                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 bg-white border-t border-gray-200">
+                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-600">
                                     Silakan hubungi kami melalui kontak WhatsApp atau Email yang tersedia di tab "Kontak Kami" dengan menyertakan detail kesalahan yang ditemukan.
                                 </div>
                             </div>
 
                             <!-- FAQ Item 5 -->
                             <div x-data="{ expanded: false }" class="border border-gray-200 rounded-lg overflow-hidden">
-                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 px-4 py-3 text-left text-sm font-medium text-gray-900 hover:bg-gray-100 transition-colors">
+                                <button @click="expanded = !expanded" class="flex w-full items-center justify-between bg-gray-50 dark:bg-slate-700 px-4 py-3 text-left text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors">
                                     <span>Apakah layanan ini gratis?</span>
                                     <svg :class="expanded ? 'rotate-180' : ''" class="h-5 w-5 text-gray-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </button>
-                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 bg-white border-t border-gray-200">
+                                <div x-show="expanded" x-collapse class="px-4 py-3 text-sm text-gray-600 dark:text-slate-300 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-600">
                                     Ya, seluruh data dan fitur yang tersedia di website Serdadu ini dapat diakses dan diunduh secara gratis oleh publik.
                                 </div>
                             </div>
@@ -1346,26 +1390,26 @@
                                     Jika Anda memiliki pertanyaan lebih lanjut atau kendala teknis, silakan hubungi kami melalui saluran berikut:
                                 </p>
                                 <div class="space-y-3">
-                                    <a href="https://wa.me/6285784699144" target="_blank" class="flex items-center gap-3 p-3 bg-white rounded-lg border border-green-200 hover:shadow-sm transition-shadow group">
+                                    <a href="https://wa.me/6285784699144" target="_blank" class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg border border-green-200 dark:border-green-800 hover:shadow-sm transition-shadow group">
                                         <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
                                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                                             </svg>
                                         </div>
                                         <div>
-                                            <div class="text-sm font-medium text-gray-900">WhatsApp</div>
+                                            <div class="text-sm font-medium text-gray-900 dark:text-white">WhatsApp</div>
                                             <div class="text-xs text-gray-500">0857-8469-9144</div>
                                         </div>
                                     </a>
                                     
-                                    <a href="mailto:dukcapil@madiunkab.go.id" class="flex items-center gap-3 p-3 bg-white rounded-lg border border-green-200 hover:shadow-sm transition-shadow group">
+                                    <a href="mailto:dukcapil@madiunkab.go.id" class="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 rounded-lg border border-green-200 dark:border-green-800 hover:shadow-sm transition-shadow group">
                                         <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                             </svg>
                                         </div>
                                         <div>
-                                            <div class="text-sm font-medium text-gray-900">Email</div>
+                                            <div class="text-sm font-medium text-gray-900 dark:text-white">Email</div>
                                             <div class="text-xs text-gray-500">dukcapil@madiunkab.go.id</div>
                                         </div>
                                     </a>
@@ -1378,7 +1422,7 @@
                     <div class="mt-6 flex justify-end space-x-3">
                         <button 
                             type="button" 
-                            class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-md hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             @click="isHelpModalOpen = false"
                         >
                             Tutup

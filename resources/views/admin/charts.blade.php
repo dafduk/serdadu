@@ -252,7 +252,7 @@
     @endphp
 
     {{-- Kartu filter untuk memilih wilayah dan periode data agregat yang ditampilkan --}}
-    <div class="dk-card mb-4">
+    <div class="dk-card mb-4 animate-fade-in-up">
         <div class="p-4">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end">
                 <div class="lg:col-span-3">
@@ -355,7 +355,7 @@
             $periodLabel = !empty($periodLabelParts) ? implode(' ', $periodLabelParts) : null;
         @endphp
 
-        <div class="dk-card mt-4">
+        <div class="dk-card mt-4 animate-fade-in-up delay-200">
             {{-- Navigasi tab pada layar desktop untuk berpindah antar kategori grafik --}}
             <ul class="dk-tabs" id="chartTabs" role="tablist">
                 @foreach ($tabs as $key => $label)

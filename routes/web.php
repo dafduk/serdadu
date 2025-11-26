@@ -52,6 +52,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/serdadu/admin/import/reset', [ImportController::class, 'reset'])->name('import.reset');
     
     Route::get('/serdadu/admin/download-logs', [App\Http\Controllers\AdminDashboardController::class, 'downloadLogs'])->name('admin.download-logs');
+    Route::get('/serdadu/admin/download-logs/count', [App\Http\Controllers\AdminDashboardController::class, 'getUnseenCount'])->name('admin.download-logs.count');
     
     Route::get('/serdadu/admin/account', [App\Http\Controllers\AdminDashboardController::class, 'account'])->name('admin.account');
     Route::patch('/serdadu/admin/account', [App\Http\Controllers\AdminDashboardController::class, 'updateAccount'])->name('admin.account.update');

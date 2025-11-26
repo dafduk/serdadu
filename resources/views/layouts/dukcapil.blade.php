@@ -170,6 +170,15 @@
                     document.body.style.overflow = 'hidden';
                     document.documentElement.style.overflow = 'hidden';
                     
+                    // Add entering animation classes
+                    console.log('Step 6.5: Adding animation classes');
+                    modalElement.classList.add('modal-entering');
+                    modalElement.classList.remove('modal-leaving');
+                    if (overlay) {
+                        overlay.classList.add('overlay-entering');
+                        overlay.classList.remove('overlay-leaving');
+                    }
+                    
                     // Force reflow
                     console.log('Step 7: Forcing reflow');
                     void modalElement.offsetHeight;

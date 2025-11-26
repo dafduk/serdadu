@@ -108,7 +108,7 @@
                         role="button"
                         tabindex="0"
                         aria-label="Download Excel">
-                        <img src="{{ asset('img/excel.png') }}" alt="Excel icon" class="w-7 h-7 md:w-8 md:h-8 object-contain" style="width:1.3rem;height:1.3rem;">
+                        <img src="{{ asset('img/sheet.png') }}" alt="Excel icon" class="w-7 h-7 md:w-8 md:h-8 object-contain" style="width:1.3rem;height:1.3rem;">
                     </span>
                 </div>
             @endif
